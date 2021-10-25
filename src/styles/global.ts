@@ -104,5 +104,6 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     width: 100%;
     overflow-y: auto;
+    padding: 3rem;
   }
 `

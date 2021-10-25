@@ -1,122 +1,28 @@
+import ElectionCard from '../../components/shared/ElectionCard'
+import MessageHome from '../../components/utils/MessageHome'
+import { HomeWrapper } from '../../styles/pages/home'
+import { SectionDescription, SectionTitle } from '../../styles/utils'
 const Home = () => {
 	return (
-		<div>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
+		<HomeWrapper>
+			<SectionDescription>
+				Bienvenido, a la sección de resultados, aqui podras ver la lista de
+				elecciones, para poder generar algunos reportes como, ver los
+				resultados, la lista de candidatos o la lista de votantes.
+			</SectionDescription>
 
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vero
-				eveniet ducimus, aliquid neque perspiciatis, perferendis veniam
-				consequuntur ex nisi quod cum maiores tempore fuga nihil quibusdam iusto
-				laboriosam? Quis.
-			</p>
-		</div>
+			<MessageHome />
+
+			<SectionTitle>Lista de Elecciones</SectionTitle>
+
+			<ElectionCard />
+			<ElectionCard />
+			<ElectionCard />
+			<ElectionCard />
+			<ElectionCard />
+			<ElectionCard />
+			<ElectionCard />
+		</HomeWrapper>
 	)
 }
 

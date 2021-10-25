@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useApp } from '../../store/useApp'
 import {
 	NavbarHeader,
 	NavbarItem,
@@ -6,8 +7,10 @@ import {
 	NavbarWrapper,
 } from '../../styles/shared/navbar'
 const Navbar = () => {
+	const { showMenu, toggleMenu } = useApp((store) => store)
+
 	return (
-		<NavbarWrapper>
+		<NavbarWrapper className={showMenu ? 'active' : ''}>
 			<NavbarHeader>
 				<figure>
 					<img src='/images/logo.svg' alt='CIDI logo' />
@@ -19,23 +22,33 @@ const Navbar = () => {
 			<NavbarMenu>
 				<ul>
 					<NavbarItem>
-						<Link to='/home'>Dashboard</Link>
+						<Link to='/home' onClick={toggleMenu}>
+							Dashboard
+						</Link>
 					</NavbarItem>
 
 					<NavbarItem>
-						<Link to='/users'>Usuarios</Link>
+						<Link to='/users' onClick={toggleMenu}>
+							Usuarios
+						</Link>
 					</NavbarItem>
 
 					<NavbarItem>
-						<Link to='/elections'>Elecciones</Link>
+						<Link to='/elections' onClick={toggleMenu}>
+							Elecciones
+						</Link>
 					</NavbarItem>
 
 					<NavbarItem>
-						<Link to='/candidates'>Candidatos</Link>
+						<Link to='/candidates' onClick={toggleMenu}>
+							Candidatos
+						</Link>
 					</NavbarItem>
 
 					<NavbarItem>
-						<Link to='/voters'>Votantes</Link>
+						<Link to='/voters' onClick={toggleMenu}>
+							Votantes
+						</Link>
 					</NavbarItem>
 				</ul>
 			</NavbarMenu>

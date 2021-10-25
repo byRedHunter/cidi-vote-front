@@ -6,11 +6,16 @@ export const NavbarWrapper = styled.aside`
 	background: var(--color-dark);
 	position: absolute;
 	top: 0;
-	left: 0;
+	left: -100%;
 	padding: 3rem;
 	display: grid;
 	grid-template-rows: 110px 1fr;
 	row-gap: 4rem;
+	transition: 0.3s linear;
+	&.active {
+		left: 0;
+		transition: 0.3s linear;
+	}
 `
 export const NavbarHeader = styled.div`
 	figure {

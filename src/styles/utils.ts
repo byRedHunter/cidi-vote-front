@@ -49,3 +49,17 @@ export const ButtonMenu = styled.button`
 		width: 4rem;
 	}
 `
+export const SectionDescription = styled.p`
+	color: var(--color-dark);
+	margin-bottom: 3rem;
+`
+export const SectionTitle = styled.h2`
+	font-size: 2.2rem;
+	color: var(--color-com);
+	margin-bottom: 2rem;
+`
+export const SectionInfo = styled.p`
+	margin: 3rem 0 2rem;
+	color: var(--color-com);
+	font-weight: 500;
+`
