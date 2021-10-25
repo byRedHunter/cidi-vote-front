@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const FormInput = styled.div`
 	display: flex;
 	flex-direction: column;
+	margin-bottom: 2rem;
 	label {
 		display: block;
 		margin-bottom: 1rem;

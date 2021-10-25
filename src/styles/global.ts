@@ -106,4 +106,13 @@ export const GlobalStyle = createGlobalStyle`
     overflow-y: auto;
     padding: 3rem;
   }
+  .button-link {
+    width: 100%;
+    font-weight: 500;
+    height: 4rem;
+    display: grid;
+    place-items: center;
+    background: var(--color-main);
+    color: var(--color-light);
+  }
 `

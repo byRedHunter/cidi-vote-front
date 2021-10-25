@@ -1,4 +1,5 @@
 import ElectionCard from '../../components/shared/ElectionCard'
+import { ActionCard } from '../../interfaces/enums'
 import { ElectionsWrapper } from '../../styles/pages/elections'
 import {
 	Button,
@@ -20,8 +21,7 @@ const Elections = () => {
 
 			<SectionTitle>Lista de Elecciones</SectionTitle>
 
-			<ElectionCard />
-			<ElectionCard />
+			<ElectionCard action={ActionCard.election} />
 		</ElectionsWrapper>
 	)
 }

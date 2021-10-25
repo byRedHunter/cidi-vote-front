@@ -60,3 +60,16 @@ export const ElecctionActions = styled.div`
 		border: none;
 	}
 `
+export const MessageHomeCliente = styled.div`
+	p {
+		margin-bottom: 4rem;
+	}
+	figure {
+		width: 28rem;
+		padding: 1.5rem;
+		background: var(--color-main);
+		img {
+			width: 100%;
+		}
+	}
+`

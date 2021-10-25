@@ -50,6 +50,12 @@ const Navbar = () => {
 							Votantes
 						</Link>
 					</NavbarItem>
+
+					<NavbarItem>
+						<Link to='/perfil' onClick={toggleMenu}>
+							Perfil
+						</Link>
+					</NavbarItem>
 				</ul>
 			</NavbarMenu>
 		</NavbarWrapper>
