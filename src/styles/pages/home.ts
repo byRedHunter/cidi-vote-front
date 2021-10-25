@@ -73,3 +73,69 @@ export const MessageHomeCliente = styled.div`
 		}
 	}
 `
+export const SectionInfoUsers = styled.section`
+	width: 100%;
+	margin-top: 3rem;
+`
+export const InfoUsersGrid = styled.ul`
+	display: grid;
+	grid-template-columns: 5rem 6rem 10rem 1fr;
+	gap: 1rem;
+	margin-bottom: 1rem;
+	align-items: center;
+	&.line {
+		border-bottom: 0.2rem solid var(--color-com);
+		padding-bottom: 0.5rem;
+	}
+	.title {
+		color: var(--color-main);
+		font-weight: 400;
+	}
+	figure {
+		height: 5rem;
+		width: 5rem;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+`
+export const TextUser = styled.p`
+	font-size: 1.2rem;
+	font-weight: 300;
+	width: 100%;
+`
+export const InfoActions = styled.div`
+	display: flex;
+	width: 100%;
+	button {
+		width: 50%;
+		height: 3.5rem;
+		width: 4rem;
+		display: grid;
+		place-items: center;
+		background: var(--color-dark);
+		span svg {
+			color: var(--color-light);
+			fill: var(--color-light);
+			height: 2rem;
+			width: 2rem;
+		}
+	}
+	button:last-of-type {
+		background: var(--color-main);
+	}
+`
+export const TableFooter = styled.div`
+	width: 20rem;
+	margin-top: 2rem;
+	button {
+		width: 50%;
+		font-size: 1.4rem;
+		background: var(--color-main);
+		padding: 1rem 0;
+		color: var(--color-light);
+	}
+	button:last-of-type {
+		background: var(--color-com);
+		color: var(--color-dark);
+	}
+`

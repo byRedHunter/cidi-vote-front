@@ -12,6 +12,7 @@ export const NavbarWrapper = styled.aside`
 	grid-template-rows: 110px 1fr;
 	row-gap: 4rem;
 	transition: 0.3s linear;
+	z-index: 2;
 	&.active {
 		left: 0;
 		transition: 0.3s linear;
