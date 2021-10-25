@@ -9,7 +9,7 @@ const HomeUser = () => {
 			<SectionTitle>Lista de Elecciones</SectionTitle>
 
 			<MessageHomeCliente>
-				<p>Bienvenido, aun no hay elecciones disponible.</p>
+				<p>Bienvenido, aun no hay elecciones disponibles.</p>
 
 				<figure>
 					<img src='/images/logo.svg' alt='CIDI logo' />

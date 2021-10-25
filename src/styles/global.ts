@@ -115,4 +115,32 @@ export const GlobalStyle = createGlobalStyle`
     background: var(--color-main);
     color: var(--color-light);
   }
+  .Modal {
+    position: relative;
+  }
+  .Overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(17, 17, 17, 0.7);
+    z-index: 5;
+  }
+  button.button-modal {
+    top: -2rem;
+    bottom: initial;
+    right: -2rem;
+  }
+  .content {
+    width: 32rem;
+    background: #f5f5f5;
+    height: 80%;
+    border-radius: 0.8rem;
+    box-shadow: var(--box-shadow);
+    padding: 3rem 2rem;
+    overflow-y: auto;
+  }
 `

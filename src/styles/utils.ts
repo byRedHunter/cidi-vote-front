@@ -21,6 +21,18 @@ export const FormInput = styled.div`
 		height: 15rem;
 	}
 `
+export const FormCheck = styled.div`
+	width: 100%;
+	display: flex;
+	align-items: ce;
+	justify-content: space-between;
+	margin-bottom: 3rem;
+	input {
+		border-color: var(--color-com);
+		height: 1.5rem;
+		width: 1.5rem;
+	}
+`
 export const Button = styled.button`
 	width: 100%;
 	font-weight: 500;
@@ -63,4 +75,8 @@ export const SectionInfo = styled.p`
 	margin: 3rem 0 2rem;
 	color: var(--color-com);
 	font-weight: 500;
+`
+export const ModalTitle = styled.h2`
+	font-size: 2.4rem;
+	margin-bottom: 1rem;
 `

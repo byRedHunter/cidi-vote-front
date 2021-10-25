@@ -109,7 +109,6 @@ export const InfoActions = styled.div`
 	button {
 		width: 50%;
 		height: 3.5rem;
-		width: 4rem;
 		display: grid;
 		place-items: center;
 		background: var(--color-dark);
