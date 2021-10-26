@@ -8,7 +8,7 @@ const MessageHome = () => {
 				Aun no hay elecciones. Para ver los resultados, debe de crear una
 				eleccion.
 			</p>
-			<Link to='/election'>Crear Elección</Link>
+			<Link to='/elections'>Crear Elección</Link>
 		</MessageHomeWrapper>
 	)
 }

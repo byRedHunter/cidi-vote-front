@@ -42,7 +42,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: var(--font-family);
     color: var(--color-dark);
     background-color: #eee;
-    min-width: 375px;
+    min-width: 350px;
     font-weight: 300;
   }
 
@@ -114,6 +114,7 @@ export const GlobalStyle = createGlobalStyle`
     place-items: center;
     background: var(--color-main);
     color: var(--color-light);
+    margin-bottom: 3rem;
   }
   .Modal {
     position: relative;
@@ -135,12 +136,15 @@ export const GlobalStyle = createGlobalStyle`
     right: -2rem;
   }
   .content {
-    width: 32rem;
+    width: 30rem;
     background: #f5f5f5;
-    height: 80%;
+    max-height: 85vh;
     border-radius: 0.8rem;
     box-shadow: var(--box-shadow);
     padding: 3rem 2rem;
     overflow-y: auto;
+    @media screen and (min-width: 600px) {
+      width: 35rem;
+    }
   }
 `

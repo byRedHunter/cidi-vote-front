@@ -1,16 +1,25 @@
+import { Search } from 'react-ionicons'
 import { Link } from 'react-router-dom'
+import Image from '../../components/shared/Image'
 import ElectionCard from '../../components/shared/ElectionCard'
+import ModalWrapper from '../../components/shared/ModalWrapper'
 import { ActionCard } from '../../interfaces/enums'
-import { CandidatesWrapper } from '../../styles/pages/candidates'
+import { CandidatesWrapper, UlGrid } from '../../styles/pages/candidates'
+import { ListCandidates } from '../../styles/utils'
 import {
+	FormInput,
+	ModalTitle,
 	SectionDescription,
 	SectionInfo,
 	SectionTitle,
 } from '../../styles/utils'
+import CardCandidate from '../../components/shared/CardCandidate'
 
 const Candidates = () => {
 	return (
 		<CandidatesWrapper>
+			<ModalTitle>Candidatos</ModalTitle>
+
 			<SectionDescription>
 				En esta sección, Ud. podra agregar candidatos a una Elección.
 			</SectionDescription>
@@ -24,6 +33,65 @@ const Candidates = () => {
 			<SectionTitle>Lista de Elecciones</SectionTitle>
 
 			<ElectionCard action={ActionCard.candidates} />
+
+			<ModalWrapper>
+				<ModalTitle>Agregar Candidatos</ModalTitle>
+				<SectionDescription>
+					Busque un usuario por DNI, nombre o apellido para agregarlo como
+					candidato.
+				</SectionDescription>
+
+				<form>
+					<FormInput>
+						<label htmlFor='search'>Buscar</label>
+						<input type='search' id='search' name='search' />
+						<div className='icon'>
+							<Search />
+						</div>
+					</FormInput>
+				</form>
+
+				<SectionInfo>Resultados</SectionInfo>
+				<UlGrid>
+					<li>
+						<span>Foto</span>
+						<span>Nombres</span>
+						<span>Acciones</span>
+					</li>
+					<li className='line'>
+						<Image
+							src='https://cdn.pixabay.com/photo/2016/03/23/04/01/woman-1274056__340.jpg'
+							alt='Nombre de la persona'
+						/>
+						<p>Jazmin Lana, Martinez Suares</p>
+						<button>Agregar</button>
+					</li>
+					<li className='line'>
+						<Image
+							src='https://cdn.pixabay.com/photo/2016/03/23/04/01/woman-1274056__340.jpg'
+							alt='Nombre de la persona'
+						/>
+						<p>Jazmin Lana, Martinez Suares</p>
+						<button>Agregar</button>
+					</li>
+					<li className='line'>
+						<Image
+							src='https://cdn.pixabay.com/photo/2016/03/23/04/01/woman-1274056__340.jpg'
+							alt='Nombre de la persona'
+						/>
+						<p>Jazmin Lana, Martinez Suares</p>
+						<button>Agregar</button>
+					</li>
+				</UlGrid>
+
+				<SectionInfo>Candidatos</SectionInfo>
+				<ListCandidates>
+					<CardCandidate />
+					<CardCandidate />
+					<CardCandidate />
+					<CardCandidate />
+				</ListCandidates>
+			</ModalWrapper>
 		</CandidatesWrapper>
 	)
 }

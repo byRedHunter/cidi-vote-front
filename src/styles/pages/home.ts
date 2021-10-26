@@ -41,7 +41,7 @@ export const ElecctionTitle = styled.h3`
 `
 export const ElecctionActions = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 7rem;
+	grid-template-columns: 1fr 6rem;
 	column-gap: 2rem;
 	button {
 		font-size: 1.2rem;

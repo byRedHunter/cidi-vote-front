@@ -1,4 +1,5 @@
 import { ActionCard } from '../../interfaces/enums'
+import { useApp } from '../../store/useApp'
 import {
 	ElecctionActions,
 	ElecctionCardWrapper,
@@ -10,6 +11,8 @@ interface PropsElectionCard {
 }
 
 const ElectionCard = ({ action }: PropsElectionCard) => {
+	const { openModal } = useApp((store) => store)
+
 	return (
 		<ElecctionCardWrapper>
 			<ElecctionTitle>Presidente de Mesa</ElecctionTitle>
@@ -41,7 +44,7 @@ const ElectionCard = ({ action }: PropsElectionCard) => {
 				{action === ActionCard.candidates && (
 					<>
 						<div>
-							<button>Agregar</button>
+							<button onClick={openModal}>Agregar</button>
 						</div>
 					</>
 				)}
@@ -49,7 +52,7 @@ const ElectionCard = ({ action }: PropsElectionCard) => {
 				{action === ActionCard.voters && (
 					<>
 						<div>
-							<button>Agregar</button>
+							<button onClick={openModal}>Agregar</button>
 						</div>
 					</>
 				)}

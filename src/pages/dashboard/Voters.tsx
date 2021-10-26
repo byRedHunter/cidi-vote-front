@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import ElectionCard from '../../components/shared/ElectionCard'
 import { ActionCard } from '../../interfaces/enums'
 import { VotersWrapper } from '../../styles/pages/voter'
+import { ModalTitle } from '../../styles/utils'
 import {
 	SectionDescription,
 	SectionInfo,
@@ -11,6 +12,8 @@ import {
 const Voters = () => {
 	return (
 		<VotersWrapper>
+			<ModalTitle>Votantes</ModalTitle>
+
 			<SectionDescription>
 				En esta seccion, Ud. podra agregar los votantes a una determinada
 				elección.
