@@ -1,7 +1,15 @@
 import { ActionCard } from '../../interfaces/enums'
-import { SectionTitle } from '../../styles/utils'
+import {
+	SectionTitle,
+	ModalTitle,
+	SectionDescription,
+	SectionInfo,
+	ListCandidates,
+} from '../../styles/utils'
 import ElectionCard from '../shared/ElectionCard'
 import { MessageHomeCliente } from '../../styles/pages/home'
+import ModalWrapper from '../shared/ModalWrapper'
+import CardCandidate from '../shared/CardCandidate'
 
 const HomeUser = () => {
 	return (
@@ -17,6 +25,22 @@ const HomeUser = () => {
 			</MessageHomeCliente>
 
 			<ElectionCard action={ActionCard.user} />
+
+			<ModalWrapper>
+				<ModalTitle>Emitir Voto</ModalTitle>
+				<SectionDescription>
+					Seleccione a su candidato favorito para emitir su voto.
+				</SectionDescription>
+				<SectionInfo>Candidatos</SectionInfo>
+
+				<ListCandidates>
+					<CardCandidate />
+					<CardCandidate />
+					<CardCandidate />
+					<CardCandidate />
+					<CardCandidate />
+				</ListCandidates>
+			</ModalWrapper>
 		</>
 	)
 }

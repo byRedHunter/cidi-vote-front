@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import ElectionCard from '../../components/shared/ElectionCard'
+import ModalWrapper from '../../components/shared/ModalWrapper'
+import UserModal from '../../components/utils/UserModal'
 import { ActionCard } from '../../interfaces/enums'
 import { VotersWrapper } from '../../styles/pages/voter'
-import { ModalTitle } from '../../styles/utils'
+import { FormInput, ModalTitle, UlGrid } from '../../styles/utils'
 import {
 	SectionDescription,
 	SectionInfo,
@@ -28,6 +30,35 @@ const Voters = () => {
 			<SectionTitle>Lista de Elecciones</SectionTitle>
 
 			<ElectionCard action={ActionCard.voters} />
+
+			<ModalWrapper>
+				<ModalTitle>Agregar Votantes</ModalTitle>
+				<SectionDescription>
+					Seleccione a los votantes, o puede filtrarlos por DNI, apellidos o
+					nombres.
+				</SectionDescription>
+
+				<FormInput>
+					<label htmlFor='filter'>Filtrar</label>
+					<input type='text' name='filter' id='filter' />
+				</FormInput>
+
+				<SectionInfo>Lista de Usuarios</SectionInfo>
+				<UlGrid>
+					<li>
+						<span>Foto</span>
+						<span>Nombres</span>
+						<span>Acciones</span>
+					</li>
+					<UserModal />
+					<UserModal />
+					<UserModal />
+					<UserModal />
+					<UserModal />
+					<UserModal />
+					<UserModal />
+				</UlGrid>
+			</ModalWrapper>
 		</VotersWrapper>
 	)
 }

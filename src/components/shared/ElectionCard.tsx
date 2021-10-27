@@ -60,7 +60,9 @@ const ElectionCard = ({ action }: PropsElectionCard) => {
 				{action === ActionCard.user && (
 					<>
 						<div></div>
-						<button className='main'>Votar</button>
+						<button className='main' onClick={openModal}>
+							Votar
+						</button>
 					</>
 				)}
 			</ElecctionActions>

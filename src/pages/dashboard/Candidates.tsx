@@ -1,11 +1,10 @@
 import { Search } from 'react-ionicons'
 import { Link } from 'react-router-dom'
-import Image from '../../components/shared/Image'
 import ElectionCard from '../../components/shared/ElectionCard'
 import ModalWrapper from '../../components/shared/ModalWrapper'
 import { ActionCard } from '../../interfaces/enums'
-import { CandidatesWrapper, UlGrid } from '../../styles/pages/candidates'
-import { ListCandidates } from '../../styles/utils'
+import { CandidatesWrapper } from '../../styles/pages/candidates'
+import { ListCandidates, UlGrid } from '../../styles/utils'
 import {
 	FormInput,
 	ModalTitle,
@@ -14,6 +13,7 @@ import {
 	SectionTitle,
 } from '../../styles/utils'
 import CardCandidate from '../../components/shared/CardCandidate'
+import UserModal from '../../components/utils/UserModal'
 
 const Candidates = () => {
 	return (
@@ -58,30 +58,9 @@ const Candidates = () => {
 						<span>Nombres</span>
 						<span>Acciones</span>
 					</li>
-					<li className='line'>
-						<Image
-							src='https://cdn.pixabay.com/photo/2016/03/23/04/01/woman-1274056__340.jpg'
-							alt='Nombre de la persona'
-						/>
-						<p>Jazmin Lana, Martinez Suares</p>
-						<button>Agregar</button>
-					</li>
-					<li className='line'>
-						<Image
-							src='https://cdn.pixabay.com/photo/2016/03/23/04/01/woman-1274056__340.jpg'
-							alt='Nombre de la persona'
-						/>
-						<p>Jazmin Lana, Martinez Suares</p>
-						<button>Agregar</button>
-					</li>
-					<li className='line'>
-						<Image
-							src='https://cdn.pixabay.com/photo/2016/03/23/04/01/woman-1274056__340.jpg'
-							alt='Nombre de la persona'
-						/>
-						<p>Jazmin Lana, Martinez Suares</p>
-						<button>Agregar</button>
-					</li>
+
+					<UserModal />
+					<UserModal />
 				</UlGrid>
 
 				<SectionInfo>Candidatos</SectionInfo>

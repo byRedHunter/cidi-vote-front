@@ -88,7 +88,7 @@ export const GlobalStyle = createGlobalStyle`
 
   main {
     position: relative;
-    height: 100%;
+    height: 100vh;
     width: 100%;
     max-width: 40rem;
     background: var(--color-light);
@@ -121,7 +121,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   .Overlay {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     position: absolute;
     top: 0;
     left: 0;
