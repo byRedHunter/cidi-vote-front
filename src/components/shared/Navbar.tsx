@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useApp } from '../../store/useApp'
+import { useAuth } from '../../store/useAuth'
 import {
 	NavbarHeader,
 	NavbarItem,
@@ -8,6 +9,7 @@ import {
 } from '../../styles/shared/navbar'
 const Navbar = () => {
 	const { showMenu, toggleMenu } = useApp((store) => store)
+	const { clearUser } = useAuth((store) => store)
 
 	return (
 		<NavbarWrapper className={showMenu ? 'active' : ''}>
@@ -16,7 +18,7 @@ const Navbar = () => {
 					<img src='/images/logo.svg' alt='CIDI logo' />
 				</figure>
 
-				<button>Salir</button>
+				<button onClick={clearUser}>Salir</button>
 			</NavbarHeader>
 
 			<NavbarMenu>

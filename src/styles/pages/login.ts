@@ -32,7 +32,6 @@ export const LoginBody = styled.div`
 	padding: 2rem 3rem 4rem;
 	display: flex;
 	flex-direction: column;
-	row-gap: 2rem;
 	button {
 		margin-top: 1rem;
 	}

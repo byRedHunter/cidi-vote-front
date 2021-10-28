@@ -3,8 +3,17 @@ import Login from '../pages/Login'
 import DashboardRoutes from './DashboardRoutes'
 import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
+import { useAuth } from '../store/useAuth'
+import { useEffect } from 'react'
 
 const AppRouter = () => {
+	const { auth, token, verifyUser } = useAuth((state) => state)
+
+	useEffect(() => {
+		if (token) verifyUser()
+		// eslint-disable-next-line
+	}, [token])
+
 	return (
 		<Router>
 			<main>
@@ -13,13 +22,13 @@ const AppRouter = () => {
 						exact
 						path='/login'
 						component={Login}
-						isAuthenticated={true}
+						isAuthenticated={auth}
 					/>
 
 					<PrivateRoute
 						path='/'
 						component={DashboardRoutes}
-						isAuthenticated={true}
+						isAuthenticated={auth}
 					/>
 				</Switch>
 			</main>

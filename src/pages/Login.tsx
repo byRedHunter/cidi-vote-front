@@ -5,10 +5,20 @@ import {
 	LoginBody,
 } from '../styles/pages/login'
 import { FormInput, Button } from '../styles/utils'
+import { useAuth } from '../store/useAuth'
+import { FormEvent } from 'react'
 const Login = () => {
+	const { loginUser } = useAuth((state) => state)
+
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+
+		loginUser()
+	}
+
 	return (
 		<LoginWrapper>
-			<FormLogin autoComplete='off'>
+			<FormLogin autoComplete='off' onSubmit={handleSubmit}>
 				<LoginHeader>
 					<figure>
 						<img src='/images/logo.svg' alt='CIDI logo' />

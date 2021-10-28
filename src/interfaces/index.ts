@@ -6,3 +6,7 @@ export interface PropRoute extends RouteProps {
 	component: any
 }
 /* --- router --- */
+
+/* user */
+export interface PropUser {}
+/* user */
