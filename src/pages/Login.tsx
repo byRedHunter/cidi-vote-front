@@ -6,39 +6,58 @@ import {
 } from '../styles/pages/login'
 import { FormInput, Button } from '../styles/utils'
 import { useAuth } from '../store/useAuth'
-import { FormEvent } from 'react'
+import { Formik } from 'formik'
+import { schemaLogin } from '../utils/schemas'
+import { InputForm } from '../components/shared/Formik'
+import { alert } from '../config/alert'
+
+interface LoginProps {
+	dni: string
+	password: string
+}
+
 const Login = () => {
 	const { loginUser } = useAuth((state) => state)
+	const initialValues = {
+		dni: '',
+		password: '',
+	}
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+	const handleSubmit = (values: LoginProps) => {
+		if (String(values.dni).length !== 8)
+			return alert.error('Ingrese un DNI válido')
 
-		loginUser()
+		console.log(values)
+		// loginUser()
 	}
 
 	return (
 		<LoginWrapper>
-			<FormLogin autoComplete='off' onSubmit={handleSubmit}>
-				<LoginHeader>
-					<figure>
-						<img src='/images/logo.svg' alt='CIDI logo' />
-					</figure>
-				</LoginHeader>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={schemaLogin}
+				onSubmit={(values) => handleSubmit(values)}
+			>
+				<FormLogin autoComplete='off'>
+					<LoginHeader>
+						<figure>
+							<img src='/images/logo.svg' alt='CIDI logo' />
+						</figure>
+					</LoginHeader>
 
-				<LoginBody>
-					<FormInput>
-						<label htmlFor='dni'>DNI</label>
-						<input type='text' id='dni' />
-					</FormInput>
+					<LoginBody>
+						<InputForm name='dni' id='dni' label='DNI' type='number' />
+						<InputForm
+							name='password'
+							id='password'
+							label='Contraseña'
+							type='password'
+						/>
 
-					<FormInput>
-						<label htmlFor='password'>Contraseña</label>
-						<input type='password' id='password' />
-					</FormInput>
-
-					<Button type='submit'>Ingresar</Button>
-				</LoginBody>
-			</FormLogin>
+						<Button type='submit'>Ingresar</Button>
+					</LoginBody>
+				</FormLogin>
+			</Formik>
 		</LoginWrapper>
 	)
 }

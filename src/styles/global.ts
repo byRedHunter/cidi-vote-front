@@ -97,7 +97,8 @@ export const GlobalStyle = createGlobalStyle`
       border-radius: .3rem;
     }
     @media screen and (min-width: 500px) {
-      height: 95%;
+      height: 93vh;
+      margin-top: 2rem;
     }
   }
   .content-info {
@@ -146,5 +147,12 @@ export const GlobalStyle = createGlobalStyle`
     @media screen and (min-width: 600px) {
       width: 35rem;
     }
+  }
+  .error {
+    color: var(--color-main);
+    font-weight: 300;
+    font-size: 1.4rem;
+    margin-top: 0.5rem;
+    transition: .3s linear;
   }
 `
