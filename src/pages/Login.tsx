@@ -1,34 +1,29 @@
+import { Formik } from 'formik'
+import { schemaLogin } from '../utils/schemas'
+import { alert } from '../config/alert'
+import { useAuth } from '../store/useAuth'
+import { LoginProps } from '../interfaces/index'
 import {
 	LoginWrapper,
 	FormLogin,
 	LoginHeader,
 	LoginBody,
 } from '../styles/pages/login'
-import { FormInput, Button } from '../styles/utils'
-import { useAuth } from '../store/useAuth'
-import { Formik } from 'formik'
-import { schemaLogin } from '../utils/schemas'
+import { Button } from '../styles/utils'
 import { InputForm } from '../components/shared/Formik'
-import { alert } from '../config/alert'
-
-interface LoginProps {
-	dni: string
-	password: string
-}
 
 const Login = () => {
 	const { loginUser } = useAuth((state) => state)
 	const initialValues = {
-		dni: '',
-		password: '',
+		dni: '73109572',
+		password: '73109572',
 	}
 
 	const handleSubmit = (values: LoginProps) => {
 		if (String(values.dni).length !== 8)
 			return alert.error('Ingrese un DNI válido')
 
-		console.log(values)
-		// loginUser()
+		loginUser(values)
 	}
 
 	return (
