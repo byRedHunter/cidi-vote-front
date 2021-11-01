@@ -1,5 +1,5 @@
 import { ErrorMessage, Field } from 'formik'
-import { FormInput } from '../../styles/utils'
+import { FormCheck, FormInput } from '../../styles/utils'
 
 interface InputProps {
 	label: string
@@ -15,5 +15,14 @@ export const InputForm = ({ label, ...props }: InputProps) => {
 			<Field {...props} />
 			<ErrorMessage className='error' name={props.name} component='p' />
 		</FormInput>
+	)
+}
+
+export const InputCheckbox = ({ label, ...props }: InputProps) => {
+	return (
+		<FormCheck>
+			<label htmlFor={props.name}>{label}</label>
+			<Field {...props} />
+		</FormCheck>
 	)
 }

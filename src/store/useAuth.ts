@@ -2,6 +2,7 @@ import create, { GetState, SetState } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { LoginProps, PropUser, User } from '../interfaces/index'
 import { clientAxios, tokenAuth } from '../config/axios'
+import { alert } from '../config/alert'
 
 interface AuthStore {
 	token: string
@@ -34,24 +35,27 @@ export const useAuth = create(
 							auth: true,
 						}))
 					} catch (error) {
-						console.log(error)
+						console.log('LOGIN ERROR: ', error)
+						alert.error('Credenciales incorrectas')
 					}
 				},
 				registerUser: async () => {},
 				verifyUser: async () => {
-					const { state: dataStorage } = JSON.parse(
-						sessionStorage.getItem('cidi-info') || ''
-					)
+					const dataStorage = sessionStorage.getItem('cidi-info') || ''
 
-					if (dataStorage.token) tokenAuth(dataStorage.token)
+					if (dataStorage !== '') {
+						const { state: info } = JSON.parse(dataStorage)
 
-					if (dataStorage.user)
-						set((state) => ({
-							...state,
-							userInfo: dataStorage.user,
-							token: dataStorage.token,
-							auth: true,
-						}))
+						if (info.token) tokenAuth(info.token)
+
+						if (info.user)
+							set((state) => ({
+								...state,
+								userInfo: info.user,
+								token: info.token,
+								auth: true,
+							}))
+					}
 				},
 				clearUser: async () => {
 					sessionStorage.clear()

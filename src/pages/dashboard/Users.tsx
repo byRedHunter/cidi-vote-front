@@ -3,8 +3,6 @@ import {
 	SectionDescription,
 	SectionTitle,
 	ModalTitle,
-	FormInput,
-	FormCheck,
 } from '../../styles/utils'
 import { UserWrapper } from '../../styles/pages/user'
 import { SectionInfoUsers, TableFooter } from '../../styles/pages/home'
@@ -14,15 +12,43 @@ import ModalWrapper from '../../components/shared/ModalWrapper'
 import { useApp } from '../../store/useApp'
 import { useUsers } from '../../store/useUsers'
 import { useEffect } from 'react'
+import { CreateUser } from '../../interfaces/index'
+import { alert } from '../../config/alert'
+import { Form, Formik } from 'formik'
+import { schemaCreateUser } from '../../utils/schemas'
+import { InputCheckbox, InputForm } from '../../components/shared/Formik'
 
 const Users = () => {
-	const { openModal } = useApp((store) => store)
-	const { users, getAllUsers } = useUsers((store) => store)
+	const { openModal, closeModal } = useApp((store) => store)
+	const {
+		users,
+		getAllUsers,
+		prevPage,
+		nextPage,
+		page,
+		addNexPage,
+		restNexPage,
+		registerUser,
+	} = useUsers((store) => store)
+
+	const initialValues = {
+		dni: '62184520',
+		name: 'User One',
+		lastName: 'User One',
+		isAdmin: false,
+	}
+
+	const handleSubmit = (values: CreateUser) => {
+		if (String(values.dni).length !== 8)
+			return alert.error('Ingrese un DNI válido')
+
+		registerUser(values, closeModal)
+	}
 
 	useEffect(() => {
 		getAllUsers()
 		// eslint-disable-next-line
-	}, [])
+	}, [page])
 
 	return (
 		<UserWrapper>
@@ -47,8 +73,8 @@ const Users = () => {
 					</SectionInfoUsers>
 
 					<TableFooter>
-						<button>Anterior</button>
-						<button>Siguiente</button>
+						{prevPage && <button onClick={restNexPage}>Anterior</button>}
+						{nextPage && <button onClick={addNexPage}>Siguiente</button>}
 					</TableFooter>
 				</>
 			)}
@@ -61,29 +87,33 @@ const Users = () => {
 					cambiarlo por seguridad.
 				</SectionDescription>
 
-				<form>
-					<FormInput>
-						<label htmlFor='dni'>DNI</label>
-						<input type='text' id='dni' />
-					</FormInput>
+				<Formik
+					initialValues={initialValues}
+					validationSchema={schemaCreateUser}
+					onSubmit={(values) => handleSubmit(values)}
+				>
+					<Form>
+						<InputForm name='dni' id='dni' label='DNI' type='number' />
 
-					<FormInput>
-						<label htmlFor='name'>Nombres</label>
-						<input type='text' id='name' />
-					</FormInput>
+						<InputForm name='name' id='name' label='Nombres' type='text' />
 
-					<FormInput>
-						<label htmlFor='lastName'>Apellidos</label>
-						<input type='text' id='lastName' />
-					</FormInput>
+						<InputForm
+							name='lastName'
+							id='lastName'
+							label='Apellidos'
+							type='text'
+						/>
 
-					<FormCheck>
-						<label htmlFor='admin'>Marcar si es administrador</label>
-						<input type='checkbox' id='admin' />
-					</FormCheck>
+						<InputCheckbox
+							name='isAdmin'
+							type='checkbox'
+							id='isAdmin'
+							label='Marcar si es administrador'
+						/>
 
-					<Button type='submit'>Crear usuario</Button>
-				</form>
+						<Button type='submit'>Crear usuario</Button>
+					</Form>
+				</Formik>
 			</ModalWrapper>
 		</UserWrapper>
 	)

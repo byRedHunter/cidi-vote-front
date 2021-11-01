@@ -47,5 +47,12 @@ export interface UserInfo {
 	createdAt: Date
 	uid: string
 }
-
+export interface CreateUser {
+	dni: string
+	name: string
+	lastName: string
+	isAdmin?: boolean
+	password?: string
+	role?: string
+}
 /* user */
