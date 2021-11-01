@@ -12,34 +12,46 @@ import TableHeader from '../../components/utils/TableHeader'
 import TableBody from '../../components/utils/TableBody'
 import ModalWrapper from '../../components/shared/ModalWrapper'
 import { useApp } from '../../store/useApp'
+import { useUsers } from '../../store/useUsers'
+import { useEffect } from 'react'
 
 const Users = () => {
 	const { openModal } = useApp((store) => store)
+	const { users, getAllUsers } = useUsers((store) => store)
+
+	useEffect(() => {
+		getAllUsers()
+		// eslint-disable-next-line
+	}, [])
 
 	return (
 		<UserWrapper>
 			<SectionTitle>Lista de usuarios</SectionTitle>
 
-			<SectionDescription>
-				Aún no hay usuarios disponibles, comience agregando uno.
-			</SectionDescription>
+			{!users && (
+				<SectionDescription>
+					Aún no hay usuarios disponibles, comience agregando uno.
+				</SectionDescription>
+			)}
 
 			<Button onClick={openModal}>Agregar usuario</Button>
 
-			<SectionInfoUsers>
-				<TableHeader />
+			{users && (
+				<>
+					<SectionInfoUsers>
+						<TableHeader />
 
-				<TableBody />
-				<TableBody />
-				<TableBody />
-				<TableBody />
-				<TableBody />
-			</SectionInfoUsers>
+						{users.map((user) => (
+							<TableBody key={user.uid} user={user} />
+						))}
+					</SectionInfoUsers>
 
-			<TableFooter>
-				<button>Anterior</button>
-				<button>Siguiente</button>
-			</TableFooter>
+					<TableFooter>
+						<button>Anterior</button>
+						<button>Siguiente</button>
+					</TableFooter>
+				</>
+			)}
 
 			<ModalWrapper>
 				<ModalTitle>Nuevo Usuario</ModalTitle>
