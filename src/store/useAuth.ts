@@ -9,9 +9,8 @@ interface AuthStore {
 	auth: boolean
 	userInfo: User | null
 	loginUser: (infoLogin: LoginProps) => void
-	registerUser: () => void
 	verifyUser: () => void
-	clearUser: () => void
+	clearUser: (closeModal: () => void) => void
 }
 
 export const useAuth = create(
@@ -28,6 +27,8 @@ export const useAuth = create(
 							infoLogin
 						)
 
+						tokenAuth(response.data.token)
+
 						set((state) => ({
 							...state,
 							token: response.data.token,
@@ -39,7 +40,6 @@ export const useAuth = create(
 						alert.error('Credenciales incorrectas')
 					}
 				},
-				registerUser: async () => {},
 				verifyUser: async () => {
 					const dataStorage = sessionStorage.getItem('cidi-info') || ''
 
@@ -57,7 +57,7 @@ export const useAuth = create(
 							}))
 					}
 				},
-				clearUser: async () => {
+				clearUser: async (closeModal) => {
 					sessionStorage.clear()
 
 					set((state) => ({
@@ -66,6 +66,8 @@ export const useAuth = create(
 						auth: false,
 						userInfo: null,
 					}))
+
+					closeModal()
 				},
 			}),
 			{

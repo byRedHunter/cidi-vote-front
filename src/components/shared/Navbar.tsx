@@ -18,7 +18,7 @@ const Navbar = () => {
 					<img src='/images/logo.svg' alt='CIDI logo' />
 				</figure>
 
-				<button onClick={clearUser}>Salir</button>
+				<button onClick={() => clearUser(toggleMenu)}>Salir</button>
 			</NavbarHeader>
 
 			<NavbarMenu>
