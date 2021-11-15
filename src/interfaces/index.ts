@@ -56,3 +56,16 @@ export interface CreateUser {
 	role?: string
 }
 /* user */
+
+/* elections */
+export interface ElectionInfo {
+	uid?: string
+	position: string
+	description: string
+	state?: boolean
+}
+export interface FormElectionProps {
+	position: string
+	description: string
+}
+/* elections */

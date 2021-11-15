@@ -1,5 +1,7 @@
 import { ActionCard } from '../../interfaces/enums'
 import { useApp } from '../../store/useApp'
+import { ElectionInfo } from '../../interfaces/index'
+import { useElection } from '../../store/useElection'
 import {
 	ElecctionActions,
 	ElecctionCardWrapper,
@@ -8,18 +10,18 @@ import {
 
 interface PropsElectionCard {
 	action: ActionCard
+	infoCard?: ElectionInfo
 }
 
-const ElectionCard = ({ action }: PropsElectionCard) => {
+const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
 	const { openModal } = useApp((store) => store)
+	const { selectItemToEdit } = useElection((store) => store)
+	// const { uid, position, description } = infoCard
 
 	return (
 		<ElecctionCardWrapper>
-			<ElecctionTitle>Presidente de Mesa</ElecctionTitle>
-			<p>
-				Una pequeña descripción del cargo, de que trata o quque actividades
-				realizara.
-			</p>
+			<ElecctionTitle>{infoCard && infoCard.position}</ElecctionTitle>
+			<p>{infoCard && infoCard.description}</p>
 			<ElecctionActions>
 				{action === ActionCard.home && (
 					<>
@@ -34,7 +36,9 @@ const ElectionCard = ({ action }: PropsElectionCard) => {
 				{action === ActionCard.election && (
 					<>
 						<div>
-							<button>Editar</button>
+							<button onClick={() => infoCard && selectItemToEdit(infoCard)}>
+								Editar
+							</button>
 							<button>Eliminar</button>
 						</div>
 						<button className='main'>Cerrar</button>

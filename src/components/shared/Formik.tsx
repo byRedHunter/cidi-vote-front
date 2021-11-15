@@ -5,6 +5,7 @@ interface InputProps {
 	label: string
 	name: string
 	type: string
+	value?: string
 	id?: string
 }
 
@@ -12,7 +13,7 @@ export const InputForm = ({ label, ...props }: InputProps) => {
 	return (
 		<FormInput>
 			<label htmlFor={props.name}> {label} </label>
-			<Field {...props} />
+			<Field {...props} as={props.type === 'textarea' ? 'textarea' : ''} />
 			<ErrorMessage className='error' name={props.name} component='p' />
 		</FormInput>
 	)
