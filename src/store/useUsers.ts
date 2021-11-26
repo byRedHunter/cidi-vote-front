@@ -11,6 +11,7 @@ interface UserStore {
 	hasNextPage: boolean
 	prevPage: number | null
 	nextPage: number | null
+	loading: boolean
 	getAllUsers: () => void
 	addNexPage: () => void
 	restNexPage: () => void
@@ -26,8 +27,10 @@ export const useUsers = create(
 			hasNextPage: false,
 			prevPage: null,
 			nextPage: null,
+			loading: false,
 			getAllUsers: async () => {
 				try {
+					set((state) => ({ ...state, loading: true }))
 					const response = await clientAxios.get<UsersResponse>(
 						`user?page=${get().page}`
 					)
@@ -39,6 +42,7 @@ export const useUsers = create(
 						hasNextPage: response.data.hasNextPage,
 						prevPage: response.data.prevPage,
 						nextPage: response.data.nextPage,
+						loading: false,
 					}))
 				} catch (error) {
 					console.log(error)

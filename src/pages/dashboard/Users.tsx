@@ -17,6 +17,7 @@ import { alert } from '../../config/alert'
 import { Form, Formik } from 'formik'
 import { schemaCreateUser } from '../../utils/schemas'
 import { InputCheckbox, InputForm } from '../../components/shared/Formik'
+import Loading from '../../components/shared/Loading'
 
 const Users = () => {
 	const { openModal, closeModal } = useApp((store) => store)
@@ -29,6 +30,7 @@ const Users = () => {
 		addNexPage,
 		restNexPage,
 		registerUser,
+		loading,
 	} = useUsers((store) => store)
 
 	const initialValues = {
@@ -67,9 +69,11 @@ const Users = () => {
 					<SectionInfoUsers>
 						<TableHeader />
 
-						{users.map((user) => (
-							<TableBody key={user.uid} user={user} />
-						))}
+						{loading ? (
+							<Loading />
+						) : (
+							users.map((user) => <TableBody key={user.uid} user={user} />)
+						)}
 					</SectionInfoUsers>
 
 					<TableFooter>
