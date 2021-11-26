@@ -128,7 +128,7 @@ export const GlobalStyle = createGlobalStyle`
     left: 0;
     display: grid;
     place-items: center;
-    background: rgba(17, 17, 17, 0.5);
+    background: rgba(17, 17, 17, 0.7);
     z-index: 5;
   }
   button.button-modal {

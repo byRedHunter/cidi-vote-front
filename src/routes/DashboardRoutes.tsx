@@ -1,5 +1,6 @@
 import { Redirect, Route, Switch } from 'react-router'
 import IconMenu from '../components/shared/IconMenu'
+import ModalAction from '../components/shared/ModalAction'
 import Navbar from '../components/shared/Navbar'
 import Candidates from '../pages/dashboard/Candidates'
 import Elections from '../pages/dashboard/Elections'
@@ -29,6 +30,8 @@ const DashboardRoutes = () => {
 			</section>
 
 			<IconMenu />
+
+			<ModalAction />
 		</>
 	)
 }

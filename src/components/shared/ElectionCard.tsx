@@ -7,7 +7,6 @@ import {
 	ElecctionCardWrapper,
 	ElecctionTitle,
 } from '../../styles/pages/home'
-import ModalAction from './ModalAction'
 import { useState } from 'react'
 
 interface PropsElectionCard {
@@ -25,14 +24,26 @@ const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
 
 	const handleOpenCloseElection = () => {
 		if (state) {
-			setMessage('Ud. esta a punto de cerrar la elección. ¿Estas seguro?')
-
-			openAction({ typeAction: TypeAction.closeElection, uid })
+			openAction({
+				typeAction: TypeAction.closeElection,
+				uid,
+				message: 'Ud. esta a punto de cerrar la elección. ¿Estas seguro?',
+			})
 		} else {
-			setMessage('Ud. reabrira la elección. ¿Estas seguro?')
-
-			openAction({ typeAction: TypeAction.openelection, uid })
+			openAction({
+				typeAction: TypeAction.openelection,
+				uid,
+				message: 'Ud. reabrira la elección. ¿Estas seguro?',
+			})
 		}
+	}
+
+	const handleDeleteElection = () => {
+		openAction({
+			typeAction: TypeAction.deleteElection,
+			uid,
+			message: 'Ud. esta a punto de eliminar la elección. ¿Estas seguro?',
+		})
 	}
 
 	return (
@@ -62,7 +73,7 @@ const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
 									Editar
 								</button>
 
-								<button>Eliminar</button>
+								<button onClick={handleDeleteElection}>Eliminar</button>
 							</div>
 
 							<button className='main' onClick={handleOpenCloseElection}>
@@ -97,8 +108,6 @@ const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
 					)}
 				</ElecctionActions>
 			</ElecctionCardWrapper>
-
-			<ModalAction message={message} />
 		</>
 	)
 }

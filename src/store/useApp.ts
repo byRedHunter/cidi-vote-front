@@ -5,6 +5,7 @@ import { TypeAction } from '../interfaces/enums'
 interface ActionParams {
 	uid?: string
 	typeAction: TypeAction
+	message: string
 }
 
 interface ModalActionStore {
@@ -12,7 +13,8 @@ interface ModalActionStore {
 	isModalOpen: boolean
 	doingAction: boolean
 	typeAction: string
-	uid?: string
+	uid: string
+	message: string
 	toggleMenu: () => void
 	openModal: () => void
 	closeModal: () => void
@@ -31,6 +33,7 @@ export const useApp = create(
 			doingAction: false,
 			typeAction: '',
 			uid: '',
+			message: '',
 			toggleMenu: () => {
 				set((state) => ({
 					...state,

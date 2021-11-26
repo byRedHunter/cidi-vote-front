@@ -9,4 +9,5 @@ export enum ActionCard {
 export enum TypeAction {
 	closeElection = 'closeElection',
 	openelection = 'openElection',
+	deleteElection = 'deleteElection',
 }

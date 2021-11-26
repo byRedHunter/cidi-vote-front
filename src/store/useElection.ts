@@ -19,6 +19,7 @@ interface ElectionStore {
 	selectItemToEdit: (data: ElectionInfo) => void
 	closeElection: (uid: string) => void
 	openElection: (uid: string) => void
+	deleteElection: (uid: string) => void
 	clearState: () => void
 }
 
@@ -94,7 +95,17 @@ export const useElection = create(
 
 					alert.success('Elección abierta, ya podran votar')
 				} catch (error) {
-					alert.error('Error inesperado al cerrar la elección')
+					alert.error('Error inesperado al reabrir la elección')
+				}
+			},
+			deleteElection: async (uid) => {
+				try {
+					await clientAxios.delete(`/election/delete/${uid}`)
+					get().getAllElections(0)
+
+					alert.success('Elección eliminada')
+				} catch (error) {
+					alert.error('Error inesperado al eliminar la elección')
 				}
 			},
 			clearState: () => {
