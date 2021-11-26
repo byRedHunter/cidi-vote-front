@@ -155,4 +155,13 @@ export const GlobalStyle = createGlobalStyle`
     margin-top: 0.5rem;
     transition: .3s linear;
   }
+
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `

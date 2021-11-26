@@ -4,13 +4,14 @@ import ElectionCard from '../shared/ElectionCard'
 import MessageHome from './MessageHome'
 import { useElection } from '../../store/useElection'
 import { useEffect } from 'react'
+import Loading from '../shared/Loading'
 
 interface HomeProps {
 	fullName: string
 }
 
 const HomeAdmin = ({ fullName }: HomeProps) => {
-	const { elections, getAllElections } = useElection((state) => state)
+	const { elections, getAllElections, loading } = useElection((state) => state)
 
 	useEffect(() => {
 		if (elections.length === 0) getAllElections(0)
@@ -25,6 +26,8 @@ const HomeAdmin = ({ fullName }: HomeProps) => {
 				la lista de elecciones, para poder generar algunos reportes como, ver
 				los resultados, la lista de candidatos o la lista de votantes.
 			</SectionDescription>
+
+			{loading && <Loading />}
 
 			{elections.length > 0 ? (
 				<>

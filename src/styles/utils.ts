@@ -172,3 +172,25 @@ export const UlGrid = styled.ul`
 		text-transform: capitalize;
 	}
 `
+export const LoadingContainer = styled.section`
+	width: 100%;
+	display: grid;
+	place-items: center;
+	padding: 4rem 0;
+`
+export const LoadingIcon = styled.div`
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+	&::after {
+		content: ' ';
+		display: block;
+		width: 64px;
+		height: 64px;
+		margin: 8px;
+		border-radius: 50%;
+		border: 6px solid #904ffc;
+		border-color: #904ffc transparent #904ffc transparent;
+		animation: lds-dual-ring 1.2s linear infinite;
+	}
+`

@@ -9,7 +9,7 @@ interface ElectionStore {
 	elections: ElectionInfo[]
 	itemSelected: null | ElectionInfo
 	editing: boolean
-	deleting: boolean
+	loading: boolean
 	getAllElections: (state: number) => void
 	saveNewElection: (
 		infoElection: FormElectionProps,
@@ -32,8 +32,10 @@ export const useElection = create(
 			elections: [],
 			itemSelected: null,
 			editing: false,
-			deleting: false,
+			loading: false,
 			getAllElections: async (state) => {
+				set((state) => ({ ...state, loading: true }))
+
 				const response = await clientAxios.get<ElectionInfo[]>(
 					`/election?state=${state}`
 				)
@@ -41,6 +43,7 @@ export const useElection = create(
 				set((state) => ({
 					...state,
 					elections: response.data,
+					loading: false,
 				}))
 			},
 			saveNewElection: async (infoElection, closeModal) => {

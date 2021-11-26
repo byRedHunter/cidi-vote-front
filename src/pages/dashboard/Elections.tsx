@@ -16,6 +16,7 @@ import {
 import { Form, Formik } from 'formik'
 import { schemaElection } from '../../utils/schemas'
 import { InputForm } from '../../components/shared/Formik'
+import Loading from '../../components/shared/Loading'
 const Elections = () => {
 	const { openModal, closeModal, isModalOpen } = useApp((store) => store)
 	const {
@@ -26,6 +27,7 @@ const Elections = () => {
 		editing,
 		itemSelected,
 		editElection,
+		loading,
 	} = useElection((store) => store)
 
 	let initialValues = {
@@ -67,11 +69,13 @@ const Elections = () => {
 				elecciones, ver las existentes y editarlos.
 			</SectionDescription>
 
-			{elections.length === 0 && (
+			{!loading && elections.length === 0 && (
 				<SectionInfo>No tiene elecciones creadas, cree una.</SectionInfo>
 			)}
 
 			<Button onClick={openModal}>Crear Elección</Button>
+
+			{loading && <Loading />}
 
 			{elections.length > 0 && (
 				<>
