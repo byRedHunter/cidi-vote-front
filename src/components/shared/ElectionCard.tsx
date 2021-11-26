@@ -1,4 +1,4 @@
-import { ActionCard } from '../../interfaces/enums'
+import { ActionCard, TypeAction } from '../../interfaces/enums'
 import { useApp } from '../../store/useApp'
 import { ElectionInfo } from '../../interfaces/index'
 import { useElection } from '../../store/useElection'
@@ -7,70 +7,99 @@ import {
 	ElecctionCardWrapper,
 	ElecctionTitle,
 } from '../../styles/pages/home'
+import ModalAction from './ModalAction'
+import { useState } from 'react'
 
 interface PropsElectionCard {
 	action: ActionCard
-	infoCard?: ElectionInfo
+	infoCard: ElectionInfo
 }
 
 const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
-	const { openModal } = useApp((store) => store)
+	const [message, setMessage] = useState('')
+
+	const { openModal, openAction } = useApp((store) => store)
 	const { selectItemToEdit } = useElection((store) => store)
-	// const { uid, position, description } = infoCard
+
+	const { uid, position, description, state } = infoCard
+
+	const handleOpenCloseElection = () => {
+		if (state) {
+			setMessage('Ud. esta a punto de cerrar la elección. ¿Estas seguro?')
+
+			openAction({ typeAction: TypeAction.closeElection, uid })
+		} else {
+			setMessage('Ud. reabrira la elección. ¿Estas seguro?')
+
+			openAction({ typeAction: TypeAction.openelection, uid })
+		}
+	}
 
 	return (
-		<ElecctionCardWrapper>
-			<ElecctionTitle>{infoCard && infoCard.position}</ElecctionTitle>
-			<p>{infoCard && infoCard.description}</p>
-			<ElecctionActions>
-				{action === ActionCard.home && (
-					<>
-						<div>
-							<button>Candidatos</button>
-							<button>Votantes</button>
-						</div>
-						<button className='main'>Resultados</button>
-					</>
-				)}
+		<>
+			<ElecctionCardWrapper>
+				<ElecctionTitle>{position}</ElecctionTitle>
 
-				{action === ActionCard.election && (
-					<>
-						<div>
-							<button onClick={() => infoCard && selectItemToEdit(infoCard)}>
-								Editar
+				<p>
+					{description} {state}
+				</p>
+
+				<ElecctionActions>
+					{action === ActionCard.home && (
+						<>
+							<div>
+								<button>Candidatos</button>
+								<button>Votantes</button>
+							</div>
+							<button className='main'>Resultados</button>
+						</>
+					)}
+
+					{action === ActionCard.election && (
+						<>
+							<div>
+								<button onClick={() => selectItemToEdit(infoCard)}>
+									Editar
+								</button>
+
+								<button>Eliminar</button>
+							</div>
+
+							<button className='main' onClick={handleOpenCloseElection}>
+								{state ? 'Cerrar' : 'Abrir'}
 							</button>
-							<button>Eliminar</button>
-						</div>
-						<button className='main'>Cerrar</button>
-					</>
-				)}
+						</>
+					)}
 
-				{action === ActionCard.candidates && (
-					<>
-						<div>
-							<button onClick={openModal}>Agregar</button>
-						</div>
-					</>
-				)}
+					{action === ActionCard.candidates && (
+						<>
+							<div>
+								<button onClick={openModal}>Agregar</button>
+							</div>
+						</>
+					)}
 
-				{action === ActionCard.voters && (
-					<>
-						<div>
-							<button onClick={openModal}>Agregar</button>
-						</div>
-					</>
-				)}
+					{action === ActionCard.voters && (
+						<>
+							<div>
+								<button onClick={openModal}>Agregar</button>
+							</div>
+						</>
+					)}
 
-				{action === ActionCard.user && (
-					<>
-						<div></div>
-						<button className='main' onClick={openModal}>
-							Votar
-						</button>
-					</>
-				)}
-			</ElecctionActions>
-		</ElecctionCardWrapper>
+					{action === ActionCard.user && (
+						<>
+							<div></div>
+							<button className='main' onClick={openModal}>
+								Votar
+							</button>
+						</>
+					)}
+				</ElecctionActions>
+			</ElecctionCardWrapper>
+
+			<ModalAction message={message} />
+		</>
 	)
 }
 

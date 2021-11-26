@@ -25,6 +25,7 @@ const Elections = () => {
 		clearState,
 		editing,
 		itemSelected,
+		editElection,
 	} = useElection((store) => store)
 
 	let initialValues = {
@@ -33,14 +34,13 @@ const Elections = () => {
 	}
 
 	const handleSubmit = (values: FormElectionProps) => {
-		if (editing) return console.log(values)
+		if (editing && itemSelected) return editElection(itemSelected.uid, values)
 
 		saveNewElection(values, closeModal)
 	}
 
 	useEffect(() => {
-		getAllElections()
-
+		if (elections.length === 0) getAllElections(0)
 		// eslint-disable-next-line
 	}, [])
 
@@ -52,6 +52,8 @@ const Elections = () => {
 	useEffect(() => {
 		if (editing && itemSelected) {
 			openModal()
+		} else {
+			closeModal()
 		}
 		// eslint-disable-next-line
 	}, [editing, itemSelected])

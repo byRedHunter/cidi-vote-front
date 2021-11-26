@@ -32,7 +32,7 @@ const Candidates = () => {
 
 			<SectionTitle>Lista de Elecciones</SectionTitle>
 
-			<ElectionCard action={ActionCard.candidates} />
+			{/* <ElectionCard action={ActionCard.candidates} /> */}
 
 			<ModalWrapper>
 				<ModalTitle>Agregar Candidatos</ModalTitle>

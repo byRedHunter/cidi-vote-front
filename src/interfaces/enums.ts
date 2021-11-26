@@ -5,3 +5,8 @@ export enum ActionCard {
 	voters = 'voters',
 	user = 'user',
 }
+
+export enum TypeAction {
+	closeElection = 'closeElection',
+	openelection = 'openElection',
+}

@@ -59,10 +59,10 @@ export interface CreateUser {
 
 /* elections */
 export interface ElectionInfo {
-	uid?: string
+	uid: string
 	position: string
 	description: string
-	state?: boolean
+	state: boolean
 }
 export interface FormElectionProps {
 	position: string

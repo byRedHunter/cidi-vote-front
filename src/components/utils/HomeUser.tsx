@@ -24,7 +24,7 @@ const HomeUser = () => {
 				</figure>
 			</MessageHomeCliente>
 
-			<ElectionCard action={ActionCard.user} />
+			{/* <ElectionCard action={ActionCard.user} /> */}
 
 			<ModalWrapper>
 				<ModalTitle>Emitir Voto</ModalTitle>

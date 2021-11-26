@@ -3,13 +3,20 @@ import { SectionDescription, SectionTitle } from '../../styles/utils'
 import ElectionCard from '../shared/ElectionCard'
 import MessageHome from './MessageHome'
 import { useElection } from '../../store/useElection'
+import { useEffect } from 'react'
 
 interface HomeProps {
 	fullName: string
 }
 
 const HomeAdmin = ({ fullName }: HomeProps) => {
-	const { elections } = useElection((state) => state)
+	const { elections, getAllElections } = useElection((state) => state)
+
+	useEffect(() => {
+		if (elections.length === 0) getAllElections(0)
+
+		// eslint-disable-next-line
+	}, [])
 
 	return (
 		<>
@@ -23,7 +30,13 @@ const HomeAdmin = ({ fullName }: HomeProps) => {
 				<>
 					<SectionTitle>Lista de Elecciones</SectionTitle>
 
-					<ElectionCard action={ActionCard.home} />
+					{elections.map((election) => (
+						<ElectionCard
+							key={election.uid}
+							action={ActionCard.home}
+							infoCard={election}
+						/>
+					))}
 				</>
 			) : (
 				<MessageHome />

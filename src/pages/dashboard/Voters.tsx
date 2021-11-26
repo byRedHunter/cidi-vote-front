@@ -29,7 +29,7 @@ const Voters = () => {
 
 			<SectionTitle>Lista de Elecciones</SectionTitle>
 
-			<ElectionCard action={ActionCard.voters} />
+			{/* <ElectionCard action={ActionCard.voters} /> */}
 
 			<ModalWrapper>
 				<ModalTitle>Agregar Votantes</ModalTitle>
