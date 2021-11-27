@@ -1,6 +1,8 @@
 import Image from './Image'
 import { CardCWrapper } from '../../styles/utils'
 import { UserInfo } from '../../interfaces/index'
+import { useApp } from '../../store/useApp'
+import { TypeAction } from '../../interfaces/enums'
 
 interface CardCandidateProps {
 	infoCandidate: UserInfo
@@ -8,6 +10,15 @@ interface CardCandidateProps {
 
 const CardCandidate = ({ infoCandidate }: CardCandidateProps) => {
 	const { uid, name, lastName } = infoCandidate
+	const { openAction } = useApp((state) => state)
+
+	const handleDelete = () => {
+		openAction({
+			uid,
+			typeAction: TypeAction.removeCandidate,
+			message: '¿Seguro que quiere quitar este candidato?',
+		})
+	}
 
 	return (
 		<CardCWrapper>
@@ -17,7 +28,7 @@ const CardCandidate = ({ infoCandidate }: CardCandidateProps) => {
 			/>
 			<div>
 				<p>{`${name} ${lastName}`}</p>
-				<button>Quitar</button>
+				<button onClick={handleDelete}>Quitar</button>
 			</div>
 		</CardCWrapper>
 	)

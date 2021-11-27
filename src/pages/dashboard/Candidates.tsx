@@ -136,6 +136,12 @@ const Candidates = () => {
 						))
 					)}
 				</ListCandidates>
+
+				{candidates?.length === 0 ? (
+					<p>No hay candidatos, agrege uno.</p>
+				) : (
+					<></>
+				)}
 			</ModalWrapper>
 		</CandidatesWrapper>
 	)

@@ -1,5 +1,6 @@
 import Image from '../shared/Image'
 import { UserInfo } from '../../interfaces/index'
+import { useCandidates } from '../../store/useCandidates'
 
 interface UserModalProps {
 	infoCandidate: UserInfo
@@ -7,6 +8,7 @@ interface UserModalProps {
 
 const UserModal = ({ infoCandidate }: UserModalProps) => {
 	const { uid, name, lastName } = infoCandidate
+	const { addCandidate } = useCandidates((store) => store)
 
 	return (
 		<li className='line'>
@@ -15,7 +17,7 @@ const UserModal = ({ infoCandidate }: UserModalProps) => {
 				alt='Nombre de la persona'
 			/>
 			<p> {`${name} ${lastName}`} </p>
-			<button>Agregar</button>
+			<button onClick={() => addCandidate(uid)}>Agregar</button>
 		</li>
 	)
 }
