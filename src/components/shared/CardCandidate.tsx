@@ -1,7 +1,14 @@
 import Image from './Image'
 import { CardCWrapper } from '../../styles/utils'
+import { UserInfo } from '../../interfaces/index'
 
-const CardCandidate = () => {
+interface CardCandidateProps {
+	infoCandidate: UserInfo
+}
+
+const CardCandidate = ({ infoCandidate }: CardCandidateProps) => {
+	const { uid, name, lastName } = infoCandidate
+
 	return (
 		<CardCWrapper>
 			<Image
@@ -9,7 +16,7 @@ const CardCandidate = () => {
 				alt='Nombre'
 			/>
 			<div>
-				<p>Jhon Michael Dow Smith</p>
+				<p>{`${name} ${lastName}`}</p>
 				<button>Quitar</button>
 			</div>
 		</CardCWrapper>

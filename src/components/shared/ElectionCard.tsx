@@ -7,7 +7,7 @@ import {
 	ElecctionCardWrapper,
 	ElecctionTitle,
 } from '../../styles/pages/home'
-import { useState } from 'react'
+import { useCandidates } from '../../store/useCandidates'
 
 interface PropsElectionCard {
 	action: ActionCard
@@ -15,10 +15,9 @@ interface PropsElectionCard {
 }
 
 const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
-	const [message, setMessage] = useState('')
-
 	const { openModal, openAction } = useApp((store) => store)
 	const { selectItemToEdit } = useElection((store) => store)
+	const { candidates, getAllCandidates } = useCandidates((state) => state)
 
 	const { uid, position, description, state } = infoCard
 
@@ -44,6 +43,11 @@ const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
 			uid,
 			message: 'Ud. esta a punto de eliminar la elección. ¿Estas seguro?',
 		})
+	}
+
+	const handleAddCandidates = () => {
+		openModal()
+		getAllCandidates(uid)
 	}
 
 	return (
@@ -85,7 +89,7 @@ const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
 					{action === ActionCard.candidates && (
 						<>
 							<div>
-								<button onClick={openModal}>Agregar</button>
+								<button onClick={handleAddCandidates}>Agregar</button>
 							</div>
 						</>
 					)}

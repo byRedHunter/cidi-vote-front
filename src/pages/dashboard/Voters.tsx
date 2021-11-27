@@ -50,13 +50,7 @@ const Voters = () => {
 						<span>Nombres</span>
 						<span>Acciones</span>
 					</li>
-					<UserModal />
-					<UserModal />
-					<UserModal />
-					<UserModal />
-					<UserModal />
-					<UserModal />
-					<UserModal />
+					{/* <UserModal /> */}
 				</UlGrid>
 			</ModalWrapper>
 		</VotersWrapper>

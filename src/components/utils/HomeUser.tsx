@@ -33,13 +33,7 @@ const HomeUser = () => {
 				</SectionDescription>
 				<SectionInfo>Candidatos</SectionInfo>
 
-				<ListCandidates>
-					<CardCandidate />
-					<CardCandidate />
-					<CardCandidate />
-					<CardCandidate />
-					<CardCandidate />
-				</ListCandidates>
+				<ListCandidates>{/* <CardCandidate /> */}</ListCandidates>
 			</ModalWrapper>
 		</>
 	)

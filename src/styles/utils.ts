@@ -65,6 +65,10 @@ export const Button = styled.button`
 	place-items: center;
 	background: var(--color-main);
 	color: var(--color-light);
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
 `
 
 export const ButtonMenu = styled.button`
