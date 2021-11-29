@@ -9,7 +9,7 @@ import {
 } from '../../styles/shared/navbar'
 const Navbar = () => {
 	const { showMenu, toggleMenu } = useApp((store) => store)
-	const { clearUser } = useAuth((store) => store)
+	const { clearUser, userInfo } = useAuth((store) => store)
 
 	return (
 		<NavbarWrapper className={showMenu ? 'active' : ''}>
@@ -29,29 +29,43 @@ const Navbar = () => {
 						</Link>
 					</NavbarItem>
 
-					<NavbarItem>
-						<Link to='/users' onClick={toggleMenu}>
-							Usuarios
-						</Link>
-					</NavbarItem>
+					{userInfo?.role === 'USER_ROLE' && (
+						<>
+							<NavbarItem>
+								<Link to='/vote' onClick={toggleMenu}>
+									Mis Elecciones
+								</Link>
+							</NavbarItem>
+						</>
+					)}
 
-					<NavbarItem>
-						<Link to='/elections' onClick={toggleMenu}>
-							Elecciones
-						</Link>
-					</NavbarItem>
+					{userInfo?.role === 'ADMIN_ROLE' && (
+						<>
+							<NavbarItem>
+								<Link to='/users' onClick={toggleMenu}>
+									Usuarios
+								</Link>
+							</NavbarItem>
 
-					<NavbarItem>
-						<Link to='/candidates' onClick={toggleMenu}>
-							Candidatos
-						</Link>
-					</NavbarItem>
+							<NavbarItem>
+								<Link to='/elections' onClick={toggleMenu}>
+									Elecciones
+								</Link>
+							</NavbarItem>
 
-					<NavbarItem>
-						<Link to='/voters' onClick={toggleMenu}>
-							Votantes
-						</Link>
-					</NavbarItem>
+							<NavbarItem>
+								<Link to='/candidates' onClick={toggleMenu}>
+									Candidatos
+								</Link>
+							</NavbarItem>
+
+							<NavbarItem>
+								<Link to='/voters' onClick={toggleMenu}>
+									Votantes
+								</Link>
+							</NavbarItem>
+						</>
+					)}
 
 					<NavbarItem>
 						<Link to='/perfil' onClick={toggleMenu}>
