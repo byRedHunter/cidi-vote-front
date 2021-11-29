@@ -15,7 +15,7 @@ import {
 } from '../../styles/utils'
 import { Form, Formik } from 'formik'
 import { schemaElection } from '../../utils/schemas'
-import { InputForm } from '../../components/shared/Formik'
+import { InputForm, InputCheckbox } from '../../components/shared/Formik'
 import Loading from '../../components/shared/Loading'
 const Elections = () => {
 	const { openModal, closeModal, isModalOpen } = useApp((store) => store)
@@ -33,6 +33,7 @@ const Elections = () => {
 	let initialValues = {
 		position: 'Test',
 		description: 'Test',
+		private: false,
 	}
 
 	const handleSubmit = (values: FormElectionProps) => {
@@ -122,6 +123,15 @@ const Elections = () => {
 							name='description'
 							id='description'
 						/>
+
+						{!itemSelected && (
+							<InputCheckbox
+								name='private'
+								label='Marcar como privado'
+								type='checkbox'
+								id='private'
+							/>
+						)}
 
 						<Button type='submit'>{editing ? 'Editar' : 'Crear'} </Button>
 					</Form>

@@ -20,6 +20,7 @@ interface ModalActionStore {
 	closeModal: () => void
 	openAction: (actions: ActionParams) => void
 	closeAction: () => void
+	addTypeAction: (type: TypeAction) => void
 }
 
 export const useApp = create(
@@ -65,6 +66,12 @@ export const useApp = create(
 					doingAction: false,
 					typeAction: '',
 					uid: '',
+				}))
+			},
+			addTypeAction: (typeAction) => {
+				set((state) => ({
+					...state,
+					typeAction,
 				}))
 			},
 		})

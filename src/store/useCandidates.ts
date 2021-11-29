@@ -7,13 +7,16 @@ import { alert } from '../config/alert'
 interface CandidateStore {
 	loadingCandidates: boolean
 	loadingSearch: boolean
-	candidates: UserInfo[] | null
-	searchCAndidates: UserInfo[] | null
+	candidates: UserInfo[]
+	searchCAndidates: UserInfo[]
 	electionSelected: string
 	getAllCandidates: (uidElection: string) => void
 	getSearchCandidates: (term: string) => void
 	addCandidate: (uid: string) => void
 	removeCandidate: (uid: string) => void
+	addVoter: (uid: string) => void
+	selectElection: (uid: string) => void
+	clearState: () => void
 }
 
 export const useCandidates = create(
@@ -24,8 +27,8 @@ export const useCandidates = create(
 		): CandidateStore => ({
 			loadingCandidates: false,
 			loadingSearch: false,
-			candidates: null,
-			searchCAndidates: null,
+			candidates: [],
+			searchCAndidates: [],
 			electionSelected: '',
 			getAllCandidates: async (uidElection: string) => {
 				set((state) => ({ ...state, loadingCandidates: true }))
@@ -45,7 +48,7 @@ export const useCandidates = create(
 				set((state) => ({
 					...state,
 					loadingSearch: true,
-					searchCAndidates: null,
+					searchCAndidates: [],
 				}))
 
 				const response = await clientAxios.get<UserInfo[]>(
@@ -83,6 +86,31 @@ export const useCandidates = create(
 				} catch (error) {
 					alert.error('Error inesperado al eliminar candidato')
 				}
+			},
+			addVoter: async (uid) => {
+				try {
+					await clientAxios.put(`/election/voters/${get().electionSelected}`, {
+						userId: uid,
+					})
+
+					alert.success('Votante agregado')
+				} catch (error) {
+					alert.error('Este persona ya ha sido agregado')
+				}
+			},
+			selectElection: async (uid) => {
+				set((state) => ({
+					...state,
+					electionSelected: uid,
+				}))
+			},
+			clearState: () => {
+				set((state) => ({
+					...state,
+					loadingCandidates: false,
+					loadingSearch: false,
+					searchCAndidates: [],
+				}))
 			},
 		})
 	)

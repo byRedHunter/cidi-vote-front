@@ -15,9 +15,9 @@ interface PropsElectionCard {
 }
 
 const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
-	const { openModal, openAction } = useApp((store) => store)
+	const { openModal, openAction, addTypeAction } = useApp((store) => store)
 	const { selectItemToEdit } = useElection((store) => store)
-	const { candidates, getAllCandidates } = useCandidates((state) => state)
+	const { getAllCandidates, selectElection } = useCandidates((state) => state)
 
 	const { uid, position, description, state } = infoCard
 
@@ -48,6 +48,13 @@ const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
 	const handleAddCandidates = () => {
 		openModal()
 		getAllCandidates(uid)
+		addTypeAction(TypeAction.addCandidate)
+	}
+
+	const handleAddVoters = () => {
+		addTypeAction(TypeAction.addVoter)
+		openModal()
+		selectElection(uid)
 	}
 
 	return (
@@ -97,7 +104,7 @@ const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
 					{action === ActionCard.voters && (
 						<>
 							<div>
-								<button onClick={openModal}>Agregar</button>
+								<button onClick={handleAddVoters}>Agregar</button>
 							</div>
 						</>
 					)}

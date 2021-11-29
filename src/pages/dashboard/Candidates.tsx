@@ -15,7 +15,7 @@ import {
 import CardCandidate from '../../components/shared/CardCandidate'
 import UserModal from '../../components/utils/UserModal'
 import { useElection } from '../../store/useElection'
-import { FormEvent, FormEventHandler, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import Loading from '../../components/shared/Loading'
 import { useCandidates } from '../../store/useCandidates'
 import { alert } from '../../config/alert'
@@ -31,6 +31,7 @@ const Candidates = () => {
 		loadingSearch,
 		getSearchCandidates,
 		searchCAndidates,
+		clearState,
 	} = useCandidates((store) => store)
 
 	const handleSearch = (e: FormEvent<HTMLFormElement>) => {
@@ -43,6 +44,10 @@ const Candidates = () => {
 
 	useEffect(() => {
 		if (elections.length === 0) getAllElections(0)
+
+		return () => {
+			clearState()
+		}
 		// eslint-disable-next-line
 	}, [])
 
@@ -70,7 +75,11 @@ const Candidates = () => {
 				<Loading />
 			) : (
 				elections.map((election) => (
-					<ElectionCard action={ActionCard.candidates} infoCard={election} />
+					<ElectionCard
+						key={election.uid}
+						action={ActionCard.candidates}
+						infoCard={election}
+					/>
 				))
 			)}
 

@@ -11,4 +11,6 @@ export enum TypeAction {
 	openelection = 'openElection',
 	deleteElection = 'deleteElection',
 	removeCandidate = 'removeCandidate',
+	addCandidate = 'addCandidate',
+	addVoter = 'addVoter',
 }

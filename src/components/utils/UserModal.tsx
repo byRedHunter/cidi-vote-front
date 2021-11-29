@@ -1,6 +1,8 @@
 import Image from '../shared/Image'
 import { UserInfo } from '../../interfaces/index'
 import { useCandidates } from '../../store/useCandidates'
+import { useApp } from '../../store/useApp'
+import { TypeAction } from '../../interfaces/enums'
 
 interface UserModalProps {
 	infoCandidate: UserInfo
@@ -8,7 +10,16 @@ interface UserModalProps {
 
 const UserModal = ({ infoCandidate }: UserModalProps) => {
 	const { uid, name, lastName } = infoCandidate
-	const { addCandidate } = useCandidates((store) => store)
+
+	const { addCandidate, addVoter } = useCandidates((store) => store)
+	const { typeAction } = useApp((store) => store)
+
+	const handleAdd = () => {
+		console.log(typeAction)
+		if (TypeAction.addCandidate === typeAction) addCandidate(uid)
+
+		if (TypeAction.addVoter === typeAction) addVoter(uid)
+	}
 
 	return (
 		<li className='line'>
@@ -17,7 +28,7 @@ const UserModal = ({ infoCandidate }: UserModalProps) => {
 				alt='Nombre de la persona'
 			/>
 			<p> {`${name} ${lastName}`} </p>
-			<button onClick={() => addCandidate(uid)}>Agregar</button>
+			<button onClick={handleAdd}>Agregar</button>
 		</li>
 	)
 }
