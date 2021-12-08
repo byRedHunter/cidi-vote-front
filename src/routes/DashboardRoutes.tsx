@@ -7,14 +7,12 @@ import Elections from '../pages/dashboard/Elections'
 
 import Home from '../pages/dashboard/Home'
 import MyElections from '../pages/dashboard/MyElections'
+import PrivateElections from '../pages/dashboard/PrivateElections'
 import Perfil from '../pages/dashboard/Perfil'
 import Users from '../pages/dashboard/Users'
 import Voters from '../pages/dashboard/Voters'
-import { useAuth } from '../store/useAuth'
 
 const DashboardRoutes = () => {
-	const { userInfo } = useAuth((store) => store)
-
 	return (
 		<>
 			<Navbar />
@@ -23,7 +21,9 @@ const DashboardRoutes = () => {
 				<Switch>
 					<Route exact path='/home' component={Home} />
 
-					<Route exact path='/vote' component={MyElections} />
+					<Route exact path='/vote/public' component={MyElections} />
+
+					<Route exact path='/vote/private' component={PrivateElections} />
 
 					<Route exact path='/users' component={Users} />
 
