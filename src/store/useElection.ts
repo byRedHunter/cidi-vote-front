@@ -8,10 +8,14 @@ import { FormElectionProps } from '../interfaces/index'
 interface ElectionStore {
 	elections: ElectionInfo[]
 	publicElections: ElectionInfo[]
+	userElections: ElectionInfo[]
+	publicUserElections: ElectionInfo[]
 	itemSelected: null | ElectionInfo
 	editing: boolean
 	loading: boolean
 	getAllElections: (state: number) => void
+	getAllElectionsUser: () => void
+	getAllElectionsPublic: () => void
 	getPrivateElections: () => void
 	saveNewElection: (
 		infoElection: FormElectionProps,
@@ -33,6 +37,8 @@ export const useElection = create(
 		): ElectionStore => ({
 			elections: [],
 			publicElections: [],
+			userElections: [],
+			publicUserElections: [],
 			itemSelected: null,
 			editing: false,
 			loading: false,
@@ -46,6 +52,32 @@ export const useElection = create(
 				set((state) => ({
 					...state,
 					elections: response.data,
+					loading: false,
+				}))
+			},
+			getAllElectionsUser: async () => {
+				set((state) => ({ ...state, loading: true }))
+
+				const response = await clientAxios.get<ElectionInfo[]>(
+					`/election/list/user`
+				)
+
+				set((state) => ({
+					...state,
+					userElections: response.data,
+					loading: false,
+				}))
+			},
+			getAllElectionsPublic: async () => {
+				set((state) => ({ ...state, loading: true }))
+
+				const response = await clientAxios.get<ElectionInfo[]>(
+					`/election/list/public`
+				)
+
+				set((state) => ({
+					...state,
+					publicUserElections: response.data,
 					loading: false,
 				}))
 			},

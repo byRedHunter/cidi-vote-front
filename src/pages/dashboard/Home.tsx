@@ -14,7 +14,7 @@ const Home = () => {
 			{userInfo?.role === 'ADMIN_ROLE' ? (
 				<HomeAdmin fullName={`${userInfo.name} ${userInfo.lastName}`} />
 			) : (
-				<HomeUser />
+				<HomeUser fullName={`${userInfo?.name} ${userInfo?.lastName}`} />
 			)}
 		</HomeWrapper>
 	)
