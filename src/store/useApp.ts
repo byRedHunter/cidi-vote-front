@@ -15,12 +15,14 @@ interface ModalActionStore {
 	typeAction: string
 	uid: string
 	message: string
+	typeElection: string
 	toggleMenu: () => void
 	openModal: () => void
 	closeModal: () => void
 	openAction: (actions: ActionParams) => void
 	closeAction: () => void
 	addTypeAction: (type: TypeAction) => void
+	addTypeElection: (type: string) => void
 }
 
 export const useApp = create(
@@ -33,6 +35,7 @@ export const useApp = create(
 			isModalOpen: false,
 			doingAction: false,
 			typeAction: '',
+			typeElection: '',
 			uid: '',
 			message: '',
 			toggleMenu: () => {
@@ -72,6 +75,12 @@ export const useApp = create(
 				set((state) => ({
 					...state,
 					typeAction,
+				}))
+			},
+			addTypeElection: (typeElection) => {
+				set((state) => ({
+					...state,
+					typeElection,
 				}))
 			},
 		})

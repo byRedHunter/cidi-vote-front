@@ -131,6 +131,12 @@ export const GlobalStyle = createGlobalStyle`
     background: rgba(17, 17, 17, 0.7);
     z-index: 5;
   }
+  .ModalAction {
+    z-index: 7;
+  }
+  .ModalAction .Overlay {
+    z-index: 9;
+  }
   button.button-modal {
     top: -2rem;
     bottom: initial;

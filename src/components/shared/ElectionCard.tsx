@@ -12,10 +12,13 @@ import { useCandidates } from '../../store/useCandidates'
 interface PropsElectionCard {
 	action: ActionCard
 	infoCard: ElectionInfo
+	type?: string
 }
 
-const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
-	const { openModal, openAction, addTypeAction } = useApp((store) => store)
+const ElectionCard = ({ action, infoCard, type }: PropsElectionCard) => {
+	const { openModal, openAction, addTypeAction, addTypeElection } = useApp(
+		(store) => store
+	)
 	const { selectItemToEdit } = useElection((store) => store)
 	const { getAllCandidates, selectElection } = useCandidates((state) => state)
 
@@ -55,6 +58,12 @@ const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
 		addTypeAction(TypeAction.addVoter)
 		openModal()
 		selectElection(uid)
+	}
+
+	const handleOpenCandidates = () => {
+		openModal()
+		addTypeElection(type || '')
+		getAllCandidates(uid)
 	}
 
 	return (
@@ -112,7 +121,7 @@ const ElectionCard = ({ action, infoCard }: PropsElectionCard) => {
 					{action === ActionCard.user && (
 						<>
 							<div></div>
-							<button className='main' onClick={openModal}>
+							<button className='main' onClick={handleOpenCandidates}>
 								Votar
 							</button>
 						</>

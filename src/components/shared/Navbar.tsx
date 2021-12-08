@@ -29,27 +29,17 @@ const Navbar = () => {
 						</Link>
 					</NavbarItem>
 
-					{(userInfo?.role === 'USER_ROLE' ||
-						userInfo?.role === 'ADMIN_ROLE') && (
-						<>
-							<NavbarItem>
-								<Link to='/vote/public' onClick={toggleMenu}>
-									Mis Elecciones
-								</Link>
-							</NavbarItem>
-						</>
-					)}
+					<NavbarItem>
+						<Link to='/vote/public' onClick={toggleMenu}>
+							Mis Elecciones
+						</Link>
+					</NavbarItem>
 
-					{(userInfo?.role === 'USER_ROLE' ||
-						userInfo?.role === 'ADMIN_ROLE') && (
-						<>
-							<NavbarItem>
-								<Link to='/vote/private' onClick={toggleMenu}>
-									Elecciones Privadas
-								</Link>
-							</NavbarItem>
-						</>
-					)}
+					<NavbarItem>
+						<Link to='/vote/private' onClick={toggleMenu}>
+							Elecciones Privadas
+						</Link>
+					</NavbarItem>
 
 					{userInfo?.role === 'ADMIN_ROLE' && (
 						<>

@@ -26,6 +26,11 @@ interface ElectionStore {
 	closeElection: (uid: string) => void
 	openElection: (uid: string) => void
 	deleteElection: (uid: string) => void
+	registerVote: (
+		uidElection: string,
+		uidCandidate: string,
+		type: string
+	) => void
 	clearState: () => void
 }
 
@@ -105,6 +110,25 @@ export const useElection = create(
 				}
 
 				closeModal()
+			},
+			registerVote: async (
+				uidElection: string,
+				uidCandidate: string,
+				type: string
+			) => {
+				try {
+					await clientAxios.put(`/election/vote/${uidElection}`, {
+						candidateId: uidCandidate,
+					})
+
+					if (type === 'public') get().getAllElectionsPublic()
+
+					if (type === 'private') get().getAllElectionsUser()
+
+					alert.success('Voto registrado')
+				} catch (error) {
+					alert.error('Error inesperado al votar')
+				}
 			},
 			selectItemToEdit: (data) => {
 				set((state) => ({

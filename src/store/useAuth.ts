@@ -46,6 +46,7 @@ export const useAuth = create(
 					if (dataStorage !== '') {
 						const { state: info } = JSON.parse(dataStorage)
 
+						console.log(info)
 						if (info.token) tokenAuth(info.token)
 
 						if (info.user)

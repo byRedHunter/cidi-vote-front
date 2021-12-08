@@ -11,13 +11,18 @@ interface ActionProps {
 }
 
 const ModalAction = ({ bg }: ActionProps) => {
-	const { doingAction, closeAction, typeAction, uid, message } = useApp(
-		(state) => state
-	)
-	const { closeElection, openElection, deleteElection } = useElection(
-		(state) => state
-	)
-	const { removeCandidate } = useCandidates((state) => state)
+	const {
+		doingAction,
+		closeAction,
+		typeAction,
+		uid,
+		message,
+		typeElection,
+		closeModal,
+	} = useApp((state) => state)
+	const { closeElection, openElection, deleteElection, registerVote } =
+		useElection((state) => state)
+	const { removeCandidate, electionSelected } = useCandidates((state) => state)
 
 	const handleAction = useCallback(() => {
 		if (typeAction === TypeAction.closeElection && uid) closeElection(uid)
@@ -26,7 +31,12 @@ const ModalAction = ({ bg }: ActionProps) => {
 
 		if (typeAction === TypeAction.deleteElection && uid) deleteElection(uid)
 
-		if (typeAction === TypeAction.removeCandidate && uid) removeCandidate(uid)
+		if (typeAction === TypeAction.removeCandidate) removeCandidate(uid)
+
+		if (typeAction === TypeAction.selectCandidate) {
+			registerVote(electionSelected, uid, typeElection)
+			closeModal()
+		}
 
 		closeAction()
 
@@ -36,7 +46,7 @@ const ModalAction = ({ bg }: ActionProps) => {
 	return (
 		<Modal
 			isOpen={doingAction}
-			className='Modal'
+			className='Modal ModalAction'
 			overlayClassName='Overlay'
 			contentLabel='CIDI Actión'
 			ariaHideApp={false}
