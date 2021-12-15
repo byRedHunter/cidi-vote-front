@@ -4,7 +4,7 @@ import ElectionCard from '../../components/shared/ElectionCard'
 import ModalWrapper from '../../components/shared/ModalWrapper'
 import { ActionCard } from '../../interfaces/enums'
 import { CandidatesWrapper } from '../../styles/pages/candidates'
-import { ListCandidates, UlGrid } from '../../styles/utils'
+import { Button, ListCandidates, UlGrid } from '../../styles/utils'
 import {
 	FormInput,
 	ModalTitle,
@@ -14,8 +14,43 @@ import {
 } from '../../styles/utils'
 import CardCandidate from '../../components/shared/CardCandidate'
 import UserModal from '../../components/utils/UserModal'
+import { useElection } from '../../store/useElection'
+import { FormEvent, useEffect, useState } from 'react'
+import Loading from '../../components/shared/Loading'
+import { useCandidates } from '../../store/useCandidates'
+import { alert } from '../../config/alert'
 
 const Candidates = () => {
+	const [openSearch, setOpenSearch] = useState<boolean>(false)
+	const [search, setSearch] = useState('')
+
+	const { elections, getAllElections, loading } = useElection((store) => store)
+	const {
+		loadingCandidates,
+		candidates,
+		loadingSearch,
+		getSearchCandidates,
+		searchCAndidates,
+		clearState,
+	} = useCandidates((store) => store)
+
+	const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+
+		if (search !== '') return getSearchCandidates(search)
+
+		return alert.warning('Ingrese un término para buscar')
+	}
+
+	useEffect(() => {
+		if (elections.length === 0) getAllElections(0)
+
+		return () => {
+			clearState()
+		}
+		// eslint-disable-next-line
+	}, [])
+
 	return (
 		<CandidatesWrapper>
 			<ModalTitle>Candidatos</ModalTitle>
@@ -24,15 +59,29 @@ const Candidates = () => {
 				En esta sección, Ud. podra agregar candidatos a una Elección.
 			</SectionDescription>
 
-			<SectionInfo>No tiene elecciones creadas, cree una.</SectionInfo>
+			{!loading && elections.length === 0 && (
+				<>
+					<SectionInfo>No tiene elecciones creadas, cree una.</SectionInfo>
 
-			<Link to='/elections' className='button-link'>
-				Crear Elección
-			</Link>
+					<Link to='/elections' className='button-link'>
+						Crear Elección
+					</Link>
+				</>
+			)}
 
 			<SectionTitle>Lista de Elecciones</SectionTitle>
 
-			<ElectionCard action={ActionCard.candidates} />
+			{loading ? (
+				<Loading />
+			) : (
+				elections.map((election) => (
+					<ElectionCard
+						key={election.uid}
+						action={ActionCard.candidates}
+						infoCard={election}
+					/>
+				))
+			)}
 
 			<ModalWrapper>
 				<ModalTitle>Agregar Candidatos</ModalTitle>
@@ -41,35 +90,67 @@ const Candidates = () => {
 					candidato.
 				</SectionDescription>
 
-				<form>
-					<FormInput>
-						<label htmlFor='search'>Buscar</label>
-						<input type='search' id='search' name='search' />
-						<div className='icon'>
-							<Search />
-						</div>
-					</FormInput>
-				</form>
+				<Button onClick={() => setOpenSearch(true)} disabled={openSearch}>
+					Nuevo Candidato
+				</Button>
 
-				<SectionInfo>Resultados</SectionInfo>
-				<UlGrid>
-					<li>
-						<span>Foto</span>
-						<span>Nombres</span>
-						<span>Acciones</span>
-					</li>
+				{openSearch ? (
+					<>
+						<form style={{ marginTop: '2rem' }} onSubmit={handleSearch}>
+							<FormInput>
+								<label htmlFor='search'>Buscar</label>
+								<input
+									type='search'
+									id='search'
+									name='search'
+									value={search}
+									onChange={({ target }) => setSearch(target.value)}
+								/>
+								<button type='submit' className='icon'>
+									<Search />
+								</button>
+							</FormInput>
+						</form>
 
-					<UserModal />
-					<UserModal />
-				</UlGrid>
+						<SectionInfo>Resultados</SectionInfo>
+						<UlGrid>
+							<li>
+								<span>Foto</span>
+								<span>Nombres</span>
+								<span>Acciones</span>
+							</li>
+
+							{loadingSearch && <Loading />}
+
+							{searchCAndidates && searchCAndidates?.length > 0 ? (
+								searchCAndidates?.map((candidate) => (
+									<UserModal key={candidate.uid} infoCandidate={candidate} />
+								))
+							) : (
+								<p>No hay coincidencias</p>
+							)}
+						</UlGrid>
+					</>
+				) : (
+					<></>
+				)}
 
 				<SectionInfo>Candidatos</SectionInfo>
 				<ListCandidates>
-					<CardCandidate />
-					<CardCandidate />
-					<CardCandidate />
-					<CardCandidate />
+					{loadingCandidates ? (
+						<Loading />
+					) : (
+						candidates?.map((candidate) => (
+							<CardCandidate key={candidate.uid} infoCandidate={candidate} />
+						))
+					)}
 				</ListCandidates>
+
+				{candidates?.length === 0 ? (
+					<p>No hay candidatos, agrege uno.</p>
+				) : (
+					<></>
+				)}
 			</ModalWrapper>
 		</CandidatesWrapper>
 	)

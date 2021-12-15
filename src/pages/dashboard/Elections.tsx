@@ -3,16 +3,63 @@ import ModalWrapper from '../../components/shared/ModalWrapper'
 import { ActionCard } from '../../interfaces/enums'
 import { ElectionsWrapper } from '../../styles/pages/elections'
 import { useApp } from '../../store/useApp'
+import { useElection } from '../../store/useElection'
+import { useEffect } from 'react'
+import { FormElectionProps } from '../../interfaces/index'
 import {
 	Button,
-	FormInput,
 	ModalTitle,
 	SectionDescription,
 	SectionInfo,
 	SectionTitle,
 } from '../../styles/utils'
+import { Form, Formik } from 'formik'
+import { schemaElection } from '../../utils/schemas'
+import { InputForm, InputCheckbox } from '../../components/shared/Formik'
+import Loading from '../../components/shared/Loading'
 const Elections = () => {
-	const { openModal } = useApp((store) => store)
+	const { openModal, closeModal, isModalOpen } = useApp((store) => store)
+	const {
+		elections,
+		getAllElections,
+		saveNewElection,
+		clearState,
+		editing,
+		itemSelected,
+		editElection,
+		loading,
+	} = useElection((store) => store)
+
+	let initialValues = {
+		position: 'Test',
+		description: 'Test',
+		private: false,
+	}
+
+	const handleSubmit = (values: FormElectionProps) => {
+		if (editing && itemSelected) return editElection(itemSelected.uid, values)
+
+		saveNewElection(values, closeModal)
+	}
+
+	useEffect(() => {
+		if (elections.length === 0) getAllElections(0)
+		// eslint-disable-next-line
+	}, [])
+
+	useEffect(() => {
+		if (!isModalOpen) clearState()
+		// eslint-disable-next-line
+	}, [isModalOpen])
+
+	useEffect(() => {
+		if (editing && itemSelected) {
+			openModal()
+		} else {
+			closeModal()
+		}
+		// eslint-disable-next-line
+	}, [editing, itemSelected])
 
 	return (
 		<ElectionsWrapper>
@@ -23,31 +70,72 @@ const Elections = () => {
 				elecciones, ver las existentes y editarlos.
 			</SectionDescription>
 
-			<SectionInfo>No tiene elecciones creadas, cree una.</SectionInfo>
+			{!loading && elections.length === 0 && (
+				<SectionInfo>No tiene elecciones creadas, cree una.</SectionInfo>
+			)}
 
 			<Button onClick={openModal}>Crear Elección</Button>
 
-			<SectionTitle>Lista de Elecciones</SectionTitle>
+			{loading && <Loading />}
 
-			<ElectionCard action={ActionCard.election} />
+			{elections.length > 0 && (
+				<>
+					<SectionTitle>Lista de Elecciones</SectionTitle>
+
+					{elections.map((election) => (
+						<ElectionCard
+							key={election.uid}
+							action={ActionCard.election}
+							infoCard={election}
+						/>
+					))}
+				</>
+			)}
 
 			<ModalWrapper>
 				<ModalTitle>Crear Elección</ModalTitle>
 				<SectionDescription>
 					Asegurese de completar los campos requeridos.
 				</SectionDescription>
-				<form>
-					<FormInput>
-						<label htmlFor='cargo'>Cargo</label>
-						<input type='text' id='cargo' name='cargo' />
-					</FormInput>
-					<FormInput>
-						<label htmlFor='description'>Descripción</label>
-						<textarea name='description' id='description'></textarea>
-					</FormInput>
+				<Formik
+					initialValues={
+						!itemSelected
+							? initialValues
+							: {
+									position: itemSelected.position,
+									description: itemSelected.description,
+							  }
+					}
+					validationSchema={schemaElection}
+					onSubmit={(values) => handleSubmit(values)}
+				>
+					<Form>
+						<InputForm
+							label='Cargo'
+							type='text'
+							name='position'
+							id='position'
+						/>
 
-					<Button>Crear</Button>
-				</form>
+						<InputForm
+							label='Descripción'
+							type='textarea'
+							name='description'
+							id='description'
+						/>
+
+						{!itemSelected && (
+							<InputCheckbox
+								name='private'
+								label='Marcar como privado'
+								type='checkbox'
+								id='private'
+							/>
+						)}
+
+						<Button type='submit'>{editing ? 'Editar' : 'Crear'} </Button>
+					</Form>
+				</Formik>
 			</ModalWrapper>
 		</ElectionsWrapper>
 	)

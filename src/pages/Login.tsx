@@ -1,34 +1,58 @@
+import { Formik } from 'formik'
+import { schemaLogin } from '../utils/schemas'
+import { alert } from '../config/alert'
+import { useAuth } from '../store/useAuth'
+import { LoginProps } from '../interfaces/index'
 import {
 	LoginWrapper,
 	FormLogin,
 	LoginHeader,
 	LoginBody,
 } from '../styles/pages/login'
-import { FormInput, Button } from '../styles/utils'
+import { Button } from '../styles/utils'
+import { InputForm } from '../components/shared/Formik'
+
 const Login = () => {
+	const { loginUser } = useAuth((state) => state)
+	const initialValues = {
+		dni: '73109572',
+		password: '73109572',
+	}
+
+	const handleSubmit = (values: LoginProps) => {
+		if (String(values.dni).length !== 8)
+			return alert.error('Ingrese un DNI válido')
+
+		loginUser(values)
+	}
+
 	return (
 		<LoginWrapper>
-			<FormLogin autoComplete='off'>
-				<LoginHeader>
-					<figure>
-						<img src='/images/logo.svg' alt='CIDI logo' />
-					</figure>
-				</LoginHeader>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={schemaLogin}
+				onSubmit={(values) => handleSubmit(values)}
+			>
+				<FormLogin autoComplete='off'>
+					<LoginHeader>
+						<figure>
+							<img src='/images/logo.svg' alt='CIDI logo' />
+						</figure>
+					</LoginHeader>
 
-				<LoginBody>
-					<FormInput>
-						<label htmlFor='dni'>DNI</label>
-						<input type='text' id='dni' />
-					</FormInput>
+					<LoginBody>
+						<InputForm name='dni' id='dni' label='DNI' type='number' />
+						<InputForm
+							name='password'
+							id='password'
+							label='Contraseña'
+							type='password'
+						/>
 
-					<FormInput>
-						<label htmlFor='password'>Contraseña</label>
-						<input type='password' id='password' />
-					</FormInput>
-
-					<Button type='submit'>Ingresar</Button>
-				</LoginBody>
-			</FormLogin>
+						<Button type='submit'>Ingresar</Button>
+					</LoginBody>
+				</FormLogin>
+			</Formik>
 		</LoginWrapper>
 	)
 }

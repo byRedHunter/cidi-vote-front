@@ -1,46 +1,71 @@
+import { useEffect } from 'react'
 import { ActionCard } from '../../interfaces/enums'
-import {
-	SectionTitle,
-	ModalTitle,
-	SectionDescription,
-	SectionInfo,
-	ListCandidates,
-} from '../../styles/utils'
-import ElectionCard from '../shared/ElectionCard'
+import { SectionTitle, SectionDescription } from '../../styles/utils'
 import { MessageHomeCliente } from '../../styles/pages/home'
-import ModalWrapper from '../shared/ModalWrapper'
-import CardCandidate from '../shared/CardCandidate'
+import { useElection } from '../../store/useElection'
+import Loading from '../shared/Loading'
+import ElectionCard from '../shared/ElectionCard'
 
-const HomeUser = () => {
+interface HomeProps {
+	fullName: string
+}
+
+const HomeUser = ({ fullName }: HomeProps) => {
+	const {
+		userElections,
+		publicUserElections,
+		loading,
+		getAllElectionsUser,
+		getAllElectionsPublic,
+	} = useElection((state) => state)
+
+	useEffect(() => {
+		if (userElections.length === 0) getAllElectionsUser()
+
+		if (publicUserElections.length === 0) getAllElectionsPublic()
+
+		// eslint-disable-next-line
+	}, [])
+
 	return (
 		<>
-			<SectionTitle>Lista de Elecciones</SectionTitle>
+			<SectionDescription>
+				Bienvenido {fullName}, esta es la sección de resultados, aqui podras ver
+				la lista de elecciones, para poder generar algunos reportes como, ver
+				los resultados, la lista de candidatos o la lista de votantes.
+			</SectionDescription>
 
-			<MessageHomeCliente>
-				<p>Bienvenido, aun no hay elecciones disponibles.</p>
+			{loading && <Loading />}
 
-				<figure>
-					<img src='/images/logo.svg' alt='CIDI logo' />
-				</figure>
-			</MessageHomeCliente>
+			{userElections.length > 0 || publicUserElections.length > 0 ? (
+				<>
+					<SectionTitle>Lista de Elecciones</SectionTitle>
 
-			<ElectionCard action={ActionCard.user} />
+					{userElections.map((election) => (
+						<ElectionCard
+							key={election.uid}
+							action={ActionCard.home}
+							infoCard={election}
+						/>
+					))}
 
-			<ModalWrapper>
-				<ModalTitle>Emitir Voto</ModalTitle>
-				<SectionDescription>
-					Seleccione a su candidato favorito para emitir su voto.
-				</SectionDescription>
-				<SectionInfo>Candidatos</SectionInfo>
+					{publicUserElections.map((election) => (
+						<ElectionCard
+							key={election.uid}
+							action={ActionCard.home}
+							infoCard={election}
+						/>
+					))}
+				</>
+			) : (
+				<MessageHomeCliente>
+					<p>Aún no hay elecciones disponibles.</p>
 
-				<ListCandidates>
-					<CardCandidate />
-					<CardCandidate />
-					<CardCandidate />
-					<CardCandidate />
-					<CardCandidate />
-				</ListCandidates>
-			</ModalWrapper>
+					<figure>
+						<img src='/images/logo.svg' alt='CIDI logo' />
+					</figure>
+				</MessageHomeCliente>
+			)}
 		</>
 	)
 }

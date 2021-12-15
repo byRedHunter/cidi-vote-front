@@ -97,7 +97,8 @@ export const GlobalStyle = createGlobalStyle`
       border-radius: .3rem;
     }
     @media screen and (min-width: 500px) {
-      height: 95%;
+      height: 93vh;
+      margin-top: 2rem;
     }
   }
   .content-info {
@@ -130,6 +131,12 @@ export const GlobalStyle = createGlobalStyle`
     background: rgba(17, 17, 17, 0.7);
     z-index: 5;
   }
+  .ModalAction {
+    z-index: 7;
+  }
+  .ModalAction .Overlay {
+    z-index: 9;
+  }
   button.button-modal {
     top: -2rem;
     bottom: initial;
@@ -145,6 +152,22 @@ export const GlobalStyle = createGlobalStyle`
     overflow-y: auto;
     @media screen and (min-width: 600px) {
       width: 35rem;
+    }
+  }
+  .error {
+    color: var(--color-main);
+    font-weight: 300;
+    font-size: 1.4rem;
+    margin-top: 0.5rem;
+    transition: .3s linear;
+  }
+
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
     }
   }
 `

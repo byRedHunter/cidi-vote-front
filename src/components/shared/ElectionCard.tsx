@@ -1,72 +1,148 @@
-import { ActionCard } from '../../interfaces/enums'
+import { ActionCard, TypeAction } from '../../interfaces/enums'
 import { useApp } from '../../store/useApp'
+import { ElectionInfo } from '../../interfaces/index'
+import { useElection } from '../../store/useElection'
 import {
 	ElecctionActions,
 	ElecctionCardWrapper,
 	ElecctionTitle,
 } from '../../styles/pages/home'
+import { useCandidates } from '../../store/useCandidates'
 
 interface PropsElectionCard {
 	action: ActionCard
+	infoCard: ElectionInfo
+	type?: string
 }
 
-const ElectionCard = ({ action }: PropsElectionCard) => {
-	const { openModal } = useApp((store) => store)
+const ElectionCard = ({ action, infoCard, type }: PropsElectionCard) => {
+	const { openModal, openAction, addTypeAction, addTypeElection } = useApp(
+		(store) => store
+	)
+	const { selectItemToEdit } = useElection((store) => store)
+	const { getAllCandidates, selectElection, candidates, voters, getAllVoters } =
+		useCandidates((state) => state)
+
+	const { uid, position, description, state, private: stateElection } = infoCard
+
+	const handleOpenCloseElection = () => {
+		if (state) {
+			openAction({
+				typeAction: TypeAction.closeElection,
+				uid,
+				message: 'Ud. esta a punto de cerrar la elección. ¿Estas seguro?',
+			})
+		} else {
+			openAction({
+				typeAction: TypeAction.openelection,
+				uid,
+				message: 'Ud. reabrira la elección. ¿Estas seguro?',
+			})
+		}
+	}
+
+	const handleDeleteElection = () => {
+		openAction({
+			typeAction: TypeAction.deleteElection,
+			uid,
+			message: 'Ud. esta a punto de eliminar la elección. ¿Estas seguro?',
+		})
+	}
+
+	const handleAddCandidates = () => {
+		openModal()
+		getAllCandidates(uid)
+		addTypeAction(TypeAction.addCandidate)
+	}
+
+	const handleAddVoters = () => {
+		addTypeAction(TypeAction.addVoter)
+		openModal()
+		selectElection(uid)
+	}
+
+	const handleOpenCandidates = () => {
+		openModal()
+		addTypeElection(type || '')
+		getAllCandidates(uid)
+	}
+
+	const handleCandidates = async () => {
+		openModal()
+		getAllCandidates(uid, position, 'candidates')
+	}
+
+	const handleVoters = async () => {
+		openModal()
+		getAllVoters(uid, position, 'voters')
+	}
 
 	return (
-		<ElecctionCardWrapper>
-			<ElecctionTitle>Presidente de Mesa</ElecctionTitle>
-			<p>
-				Una pequeña descripción del cargo, de que trata o quque actividades
-				realizara.
-			</p>
-			<ElecctionActions>
-				{action === ActionCard.home && (
-					<>
-						<div>
-							<button>Candidatos</button>
-							<button>Votantes</button>
-						</div>
-						<button className='main'>Resultados</button>
-					</>
-				)}
+		<>
+			<ElecctionCardWrapper>
+				<ElecctionTitle>{position}</ElecctionTitle>
 
-				{action === ActionCard.election && (
-					<>
-						<div>
-							<button>Editar</button>
-							<button>Eliminar</button>
-						</div>
-						<button className='main'>Cerrar</button>
-					</>
-				)}
+				<p>
+					{description} {state}
+				</p>
 
-				{action === ActionCard.candidates && (
-					<>
-						<div>
-							<button onClick={openModal}>Agregar</button>
-						</div>
-					</>
-				)}
+				<ElecctionActions>
+					{action === ActionCard.home && (
+						<>
+							<div>
+								<button onClick={handleCandidates}>Candidatos</button>
 
-				{action === ActionCard.voters && (
-					<>
-						<div>
-							<button onClick={openModal}>Agregar</button>
-						</div>
-					</>
-				)}
+								{stateElection && (
+									<button onClick={handleVoters}>Votantes</button>
+								)}
+							</div>
+							<button className='main'>Resultados</button>
+						</>
+					)}
 
-				{action === ActionCard.user && (
-					<>
-						<div></div>
-						<button className='main' onClick={openModal}>
-							Votar
-						</button>
-					</>
-				)}
-			</ElecctionActions>
-		</ElecctionCardWrapper>
+					{action === ActionCard.election && (
+						<>
+							<div>
+								<button onClick={() => selectItemToEdit(infoCard)}>
+									Editar
+								</button>
+
+								<button onClick={handleDeleteElection}>Eliminar</button>
+							</div>
+
+							<button className='main' onClick={handleOpenCloseElection}>
+								{state ? 'Cerrar' : 'Abrir'}
+							</button>
+						</>
+					)}
+
+					{action === ActionCard.candidates && (
+						<>
+							<div>
+								<button onClick={handleAddCandidates}>Agregar</button>
+							</div>
+						</>
+					)}
+
+					{action === ActionCard.voters && (
+						<>
+							<div>
+								<button onClick={handleAddVoters}>Agregar</button>
+							</div>
+						</>
+					)}
+
+					{action === ActionCard.user && (
+						<>
+							<div></div>
+							<button className='main' onClick={handleOpenCandidates}>
+								Votar
+							</button>
+						</>
+					)}
+				</ElecctionActions>
+			</ElecctionCardWrapper>
+		</>
 	)
 }
 

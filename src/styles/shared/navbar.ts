@@ -36,6 +36,7 @@ export const NavbarMenu = styled.nav`
 	width: 100%;
 	height: 100%;
 	overflow-y: auto;
+	padding-right: 1rem;
 	ul {
 		display: flex;
 		flex-direction: column;

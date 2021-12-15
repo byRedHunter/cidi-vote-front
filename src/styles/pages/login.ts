@@ -1,3 +1,4 @@
+import { Form } from 'formik'
 import styled from 'styled-components'
 
 export const LoginWrapper = styled.section`
@@ -11,8 +12,8 @@ export const LoginWrapper = styled.section`
 	display: grid;
 	place-items: center;
 `
-export const FormLogin = styled.form`
-	width: 83%;
+export const FormLogin = styled(Form)`
+	width: 80%;
 	box-shadow: var(--box-shadow);
 	border-radius: 0.8rem;
 	background: var(--color-light);
@@ -32,7 +33,6 @@ export const LoginBody = styled.div`
 	padding: 2rem 3rem 4rem;
 	display: flex;
 	flex-direction: column;
-	row-gap: 2rem;
 	button {
 		margin-top: 1rem;
 	}
