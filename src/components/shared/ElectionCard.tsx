@@ -20,9 +20,10 @@ const ElectionCard = ({ action, infoCard, type }: PropsElectionCard) => {
 		(store) => store
 	)
 	const { selectItemToEdit } = useElection((store) => store)
-	const { getAllCandidates, selectElection } = useCandidates((state) => state)
+	const { getAllCandidates, selectElection, candidates, voters, getAllVoters } =
+		useCandidates((state) => state)
 
-	const { uid, position, description, state } = infoCard
+	const { uid, position, description, state, private: stateElection } = infoCard
 
 	const handleOpenCloseElection = () => {
 		if (state) {
@@ -66,6 +67,16 @@ const ElectionCard = ({ action, infoCard, type }: PropsElectionCard) => {
 		getAllCandidates(uid)
 	}
 
+	const handleCandidates = async () => {
+		openModal()
+		getAllCandidates(uid, position, 'candidates')
+	}
+
+	const handleVoters = async () => {
+		openModal()
+		getAllVoters(uid, position, 'voters')
+	}
+
 	return (
 		<>
 			<ElecctionCardWrapper>
@@ -79,8 +90,11 @@ const ElectionCard = ({ action, infoCard, type }: PropsElectionCard) => {
 					{action === ActionCard.home && (
 						<>
 							<div>
-								<button>Candidatos</button>
-								<button>Votantes</button>
+								<button onClick={handleCandidates}>Candidatos</button>
+
+								{stateElection && (
+									<button onClick={handleVoters}>Votantes</button>
+								)}
 							</div>
 							<button className='main'>Resultados</button>
 						</>

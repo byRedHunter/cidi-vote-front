@@ -29,6 +29,8 @@ const MyElections = () => {
 
 	return (
 		<>
+			<SectionTitle>Elecciones Públicas</SectionTitle>
+
 			<SectionDescription>
 				Empiece a votar, seleccione una elección y elija a su candidato
 				favorito.

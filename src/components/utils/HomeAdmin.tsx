@@ -5,6 +5,11 @@ import MessageHome from './MessageHome'
 import { useElection } from '../../store/useElection'
 import { useEffect } from 'react'
 import Loading from '../shared/Loading'
+import ModalWrapper from '../shared/ModalWrapper'
+import { PDFViewer } from '@react-pdf/renderer'
+import CandidatesPDF from './CandidatesPDF'
+import { useCandidates } from '../../store/useCandidates'
+import VotersPDF from './VotersPDF'
 
 interface HomeProps {
 	fullName: string
@@ -12,6 +17,8 @@ interface HomeProps {
 
 const HomeAdmin = ({ fullName }: HomeProps) => {
 	const { elections, getAllElections, loading } = useElection((state) => state)
+	const { candidates, voters, loadingCandidates, position, type } =
+		useCandidates((state) => state)
 
 	useEffect(() => {
 		if (elections.length === 0) getAllElections(0)
@@ -27,9 +34,9 @@ const HomeAdmin = ({ fullName }: HomeProps) => {
 				los resultados, la lista de candidatos o la lista de votantes.
 			</SectionDescription>
 
-			{loading && <Loading />}
-
-			{elections.length > 0 ? (
+			{loading ? (
+				<Loading />
+			) : elections.length > 0 ? (
 				<>
 					<SectionTitle>Lista de Elecciones</SectionTitle>
 
@@ -44,6 +51,23 @@ const HomeAdmin = ({ fullName }: HomeProps) => {
 			) : (
 				<MessageHome />
 			)}
+
+			<ModalWrapper>
+				{loadingCandidates ? (
+					<Loading />
+				) : (
+					<PDFViewer style={{ height: '80vh', width: '100%' }}>
+						<>
+							{type === 'candidates' && (
+								<CandidatesPDF candidates={candidates} position={position} />
+							)}
+							{type === 'voters' && (
+								<VotersPDF voters={voters} position={position} />
+							)}
+						</>
+					</PDFViewer>
+				)}
+			</ModalWrapper>
 		</>
 	)
 }

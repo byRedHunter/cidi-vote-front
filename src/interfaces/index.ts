@@ -46,6 +46,7 @@ export interface UserInfo {
 	state: boolean
 	createdAt: Date
 	uid: string
+	image?: string
 }
 export interface CreateUser {
 	dni: string
@@ -63,6 +64,7 @@ export interface ElectionInfo {
 	position: string
 	description: string
 	state: boolean
+	private: boolean
 }
 export interface FormElectionProps {
 	position: string

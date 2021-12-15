@@ -8,9 +8,17 @@ interface CandidateStore {
 	loadingCandidates: boolean
 	loadingSearch: boolean
 	candidates: UserInfo[]
+	voters: UserInfo[]
 	searchCAndidates: UserInfo[]
 	electionSelected: string
-	getAllCandidates: (uidElection: string) => void
+	position: string
+	type: string
+	getAllCandidates: (
+		uidElection: string,
+		position?: string,
+		type?: string
+	) => void
+	getAllVoters: (uidElection: string, position?: string, type?: string) => void
 	getSearchCandidates: (term: string) => void
 	addCandidate: (uid: string) => void
 	removeCandidate: (uid: string) => void
@@ -28,9 +36,16 @@ export const useCandidates = create(
 			loadingCandidates: false,
 			loadingSearch: false,
 			candidates: [],
+			voters: [],
 			searchCAndidates: [],
 			electionSelected: '',
-			getAllCandidates: async (uidElection: string) => {
+			position: '',
+			type: '',
+			getAllCandidates: async (
+				uidElection: string,
+				positon?: string,
+				type?: string
+			) => {
 				set((state) => ({ ...state, loadingCandidates: true }))
 
 				const response = await clientAxios.get<UserInfo[]>(
@@ -39,7 +54,31 @@ export const useCandidates = create(
 
 				set((state) => ({
 					...state,
+					voters: [],
+					position: positon || '',
+					type: type || '',
 					candidates: response.data,
+					loadingCandidates: false,
+					electionSelected: uidElection,
+				}))
+			},
+			getAllVoters: async (
+				uidElection: string,
+				positon?: string,
+				type?: string
+			) => {
+				set((state) => ({ ...state, loadingCandidates: true }))
+
+				const response = await clientAxios.get<UserInfo[]>(
+					`/election/voters/${uidElection}`
+				)
+
+				set((state) => ({
+					...state,
+					candidates: [],
+					position: positon || '',
+					type: type || '',
+					voters: response.data,
 					loadingCandidates: false,
 					electionSelected: uidElection,
 				}))
