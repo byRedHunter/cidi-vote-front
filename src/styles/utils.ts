@@ -198,3 +198,7 @@ export const LoadingIcon = styled.div`
 		animation: lds-dual-ring 1.2s linear infinite;
 	}
 `
+export const ResultContainer = styled.section`
+	width: 100%;
+	margin: 2rem 0;
+`

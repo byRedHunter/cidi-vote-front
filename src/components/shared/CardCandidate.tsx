@@ -10,7 +10,7 @@ interface CardCandidateProps {
 }
 
 const CardCandidate = ({ infoCandidate, user }: CardCandidateProps) => {
-	const { uid, name, lastName } = infoCandidate
+	const { uid, name, lastName, image } = infoCandidate
 	const { openAction } = useApp((state) => state)
 
 	const andleAction = () => {
@@ -30,10 +30,7 @@ const CardCandidate = ({ infoCandidate, user }: CardCandidateProps) => {
 
 	return (
 		<CardCWrapper>
-			<Image
-				src='https://cdn.pixabay.com/photo/2018/03/12/12/32/woman-3219507__340.jpg'
-				alt='Nombre'
-			/>
+			<Image src={image} alt={`${name} ${lastName}`} />
 			<div>
 				<p>{`${name} ${lastName}`}</p>
 				<button onClick={andleAction}>{user ? 'Elejir' : 'Quitar'}</button>

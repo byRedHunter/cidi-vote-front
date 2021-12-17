@@ -10,6 +10,7 @@ import { PDFViewer } from '@react-pdf/renderer'
 import CandidatesPDF from './CandidatesPDF'
 import { useCandidates } from '../../store/useCandidates'
 import VotersPDF from './VotersPDF'
+import Results from './Results'
 
 interface HomeProps {
 	fullName: string
@@ -17,7 +18,7 @@ interface HomeProps {
 
 const HomeAdmin = ({ fullName }: HomeProps) => {
 	const { elections, getAllElections, loading } = useElection((state) => state)
-	const { candidates, voters, loadingCandidates, position, type } =
+	const { candidates, voters, loadingCandidates, position, type, results } =
 		useCandidates((state) => state)
 
 	useEffect(() => {
@@ -55,6 +56,8 @@ const HomeAdmin = ({ fullName }: HomeProps) => {
 			<ModalWrapper>
 				{loadingCandidates ? (
 					<Loading />
+				) : type === 'results' ? (
+					<Results results={results} position={position} />
 				) : (
 					<PDFViewer style={{ height: '80vh', width: '100%' }}>
 						<>

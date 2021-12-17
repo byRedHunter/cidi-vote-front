@@ -9,7 +9,7 @@ interface UserModalProps {
 }
 
 const UserModal = ({ infoCandidate }: UserModalProps) => {
-	const { uid, name, lastName } = infoCandidate
+	const { uid, name, lastName, image } = infoCandidate
 
 	const { addCandidate, addVoter } = useCandidates((store) => store)
 	const { typeAction } = useApp((store) => store)
@@ -23,10 +23,7 @@ const UserModal = ({ infoCandidate }: UserModalProps) => {
 
 	return (
 		<li className='line'>
-			<Image
-				src='https://cdn.pixabay.com/photo/2016/03/23/04/01/woman-1274056__340.jpg'
-				alt='Nombre de la persona'
-			/>
+			<Image src={image} alt={`${name} ${lastName}`} />
 			<p> {`${name} ${lastName}`} </p>
 			<button onClick={handleAdd}>Agregar</button>
 		</li>
