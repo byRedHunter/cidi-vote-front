@@ -1,6 +1,6 @@
 import { devtools } from 'zustand/middleware'
 import create, { GetState, SetState } from 'zustand'
-import { UserInfo } from '../interfaces/index'
+import { ResultsElection, UserInfo } from '../interfaces/index'
 import { clientAxios } from '../config/axios'
 import { alert } from '../config/alert'
 
@@ -9,6 +9,7 @@ interface CandidateStore {
 	loadingSearch: boolean
 	candidates: UserInfo[]
 	voters: UserInfo[]
+	results: ResultsElection[]
 	searchCAndidates: UserInfo[]
 	electionSelected: string
 	position: string
@@ -19,6 +20,7 @@ interface CandidateStore {
 		type?: string
 	) => void
 	getAllVoters: (uidElection: string, position?: string, type?: string) => void
+	getResults: (uidElection: string, position?: string, type?: string) => void
 	getSearchCandidates: (term: string) => void
 	addCandidate: (uid: string) => void
 	removeCandidate: (uid: string) => void
@@ -41,6 +43,7 @@ export const useCandidates = create(
 			electionSelected: '',
 			position: '',
 			type: '',
+			results: [],
 			getAllCandidates: async (
 				uidElection: string,
 				positon?: string,
@@ -55,6 +58,7 @@ export const useCandidates = create(
 				set((state) => ({
 					...state,
 					voters: [],
+					results: [],
 					position: positon || '',
 					type: type || '',
 					candidates: response.data,
@@ -76,9 +80,32 @@ export const useCandidates = create(
 				set((state) => ({
 					...state,
 					candidates: [],
+					results: [],
 					position: positon || '',
 					type: type || '',
 					voters: response.data,
+					loadingCandidates: false,
+					electionSelected: uidElection,
+				}))
+			},
+			getResults: async (
+				uidElection: string,
+				positon?: string,
+				type?: string
+			) => {
+				set((state) => ({ ...state, loadingCandidates: true }))
+
+				const response = await clientAxios.get<ResultsElection[]>(
+					`/reports/results/${uidElection}`
+				)
+
+				set((state) => ({
+					...state,
+					candidates: [],
+					voters: [],
+					position: positon || '',
+					type: type || '',
+					results: response.data,
 					loadingCandidates: false,
 					electionSelected: uidElection,
 				}))

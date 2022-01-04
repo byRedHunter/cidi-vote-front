@@ -11,6 +11,7 @@ interface AuthStore {
 	loginUser: (infoLogin: LoginProps) => void
 	verifyUser: () => void
 	clearUser: (closeModal: () => void) => void
+	changePassword: (password: string, uid: string) => void
 }
 
 export const useAuth = create(
@@ -68,6 +69,16 @@ export const useAuth = create(
 					}))
 
 					closeModal()
+				},
+				changePassword: async (password: string, uid: string) => {
+					try {
+						await clientAxios.put(`/user/password/${uid}`, { password })
+
+						alert.success('Contraseña actualizada correctamente.')
+					} catch (error) {
+						console.log('PASSWORD ERROR: ', error)
+						alert.error('Error al cambiar la contraseña, inténtelo luego.')
+					}
 				},
 			}),
 			{

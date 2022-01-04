@@ -198,3 +198,20 @@ export const LoadingIcon = styled.div`
 		animation: lds-dual-ring 1.2s linear infinite;
 	}
 `
+export const ResultContainer = styled.section`
+	width: 100%;
+	margin: 2rem 0;
+`
+export const Winner = styled.div`
+	margin-botton: 4rem;
+	text-align: center;
+	h2 {
+		color: var(--color-com);
+		font-size: 2rem;
+		margin-bottom: 1rem;
+	}
+	h3 {
+		color: var(--color-dark);
+		font-size: 1.6rem;
+	}
+`
